@@ -1,0 +1,110 @@
+models:
+  User:
+    name: string
+    password: string
+    role: enum:supervisor,assistant
+    email: string
+    relationships:
+      hasMany: Call, Reminder , Phone_User
+
+  Phone_User:
+    user_id: id
+    name: string
+    first_surname: string
+    birth_date: date
+    relationships:
+      belongsTo: User
+
+  Beneficiary:
+    name: string
+    phone_number: string
+    gender: enum:Male,Female,Other
+    marital_status: enum:Single,Engaged,Married,Divorced,Uncoupled,Widower
+    beneficiary_type: enum:Above65,65-45,44-30,29-19,18-12,Below12
+    social_security_number: string
+    rutine: string
+    second_surname: string
+    relationships:
+      hasMany: Call, Reminder, Contact, Address, Phone_Beneficiary
+      hasOne: MedicalData
+
+  Phone_Beneficiary:
+    beneficiary_id: id
+    name: string
+    first_surname: string
+    birth_date: date
+    relationships:
+      belongsTo: Beneficiary
+
+  Call:
+    user_id: id
+    beneficiary_id: id
+    date_and_time: timestamp
+    duration: integer
+    call_type: enum:rutinary,emergency
+    turn: enum:morning,afternoon,night
+    answered_call: boolean
+    observations: text
+    time: string
+    relationships:
+      belongsTo: User, Beneficiary
+
+  MedicalData:
+    beneficiary_id: id
+    allergies: text
+    morning_medication: text
+    afternoon_medication: text
+    night_medication: text
+    emergency_room_on_town: enum:Yes,No
+    firehouse_on_town: enum:Yes,No
+    police_station_on_town: enum:Yes,No
+    outpatient_clinic_on_town: enum:Yes,No
+    ambulance_on_town: enum:Yes,No
+    illnesses: text
+    preferent_morning_calls_hour: string
+    preferent_afternoon_calls_hour: string
+    preferent_night_calls_hour: string
+    preferent_day_calls_hour: string
+
+  Contact:
+    beneficiary_id: id
+    first_name: string
+    last_name: string
+    contact_type: enum:Familiar,Friend,Partner,Other
+    second_surname: string
+    relationships:
+      belongsToMany: Beneficiary
+
+  Phone_Contact:
+    name: string
+    first_surname: string
+    birth_date: date
+    relationships:
+      belongsTo: Contact
+
+  Address:
+    beneficiary_id: id
+    locality: string
+    postal_code: string
+    province: string
+    number: string
+    street: string
+
+  Reminder:
+    user_id: id
+    beneficiary_id: id
+    date_and_time: timestamp
+    description: text
+    status: enum:pending,successful,failed
+    terminated: enum:Yes,No
+    full_date: string
+    observations: text
+    full_time: string
+    annotation_id: integer
+    relationships:
+      belongsTo: User , Beneficiary
+
+
+
+controllers:
+  # ...
