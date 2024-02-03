@@ -104,7 +104,7 @@ models:
     relationships:
       belongsTo: User , Beneficiary
 
-
+seeders: User, Phone_User, Beneficiary, Phone_Beneficiary, Call, MedicalData, Contact, Phone_Contact, Address, Reminder
 
 controllers:
   # ...
