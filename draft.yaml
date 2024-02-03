@@ -108,253 +108,248 @@ seeders: User, Phone_User, Beneficiary, Phone_Beneficiary, Call, MedicalData, Co
 
 controllers:
   UserController:
-    actions:
-      index:
-        query: all
-        render: users.index with:users
-      create:
-        render: users.create
-      store:
-        validate: user
-        save: User
-        respond: users.index
-      show:
-        find: User
-        render: users.show with:user
-      edit:
-        find: User
-        render: users.edit with:user
-      update:
-        validate: user
-        update: User
-        respond: users.index
-      destroy:
-        delete: User
-        respond: users.index
+    index:
+      query: all
+      render: users.index with:users
+    create:
+      render: users.create
+    store:
+      validate: user
+      save: User
+      flash: "Usuario creado exitosamente."
+      respond: users.index
+    show:
+      find: User
+      render: users.show with:user
+    edit:
+      find: User
+      render: users.edit with:user
+    update:
+      validate: user
+      update: User
+      flash: "Usuario actualizado exitosamente."
+      respond: users.index
+    destroy:
+      delete: User
+      flash: "Usuario eliminado exitosamente."
+      respond: users.index
 
   PhoneUserController:
-    actions:
-      index:
-        query: all
-        render: phone_users.index with:phone_users
-      create:
-        render: phone_users.create
-      store:
-        validate: phone_user
-        save: PhoneUser
-        respond: phone_users.index
-      show:
-        find: PhoneUser
-        render: phone_users.show with:phone_user
-      edit:
-        find: PhoneUser
-        render: phone_users.edit with:phone_user
-      update:
-        validate: phone_user
-        update: PhoneUser
-        respond: phone_users.index
-      destroy:
-        delete: PhoneUser
-        respond: phone_users.index
+    index:
+      query: all
+      render: phone_users.index with:phone_users
+    create:
+      render: phone_users.create
+    store:
+      validate: phone_user
+      save: PhoneUser
+      respond: phone_users.index
+    show:
+      find: PhoneUser
+      render: phone_users.show with:phone_user
+    edit:
+      find: PhoneUser
+      render: phone_users.edit with:phone_user
+    update:
+      validate: phone_user
+      update: PhoneUser
+      respond: phone_users.index
+    destroy:
+      delete: PhoneUser
+      respond: phone_users.index
 
   BeneficiaryController:
-    actions:
-      index:
-        query: all
-        render: beneficiaries.index with:beneficiaries
-      create:
-        render: beneficiaries.create
-      store:
-        validate: beneficiary
-        save: Beneficiary
-        respond: beneficiaries.index
-      show:
-        find: Beneficiary
-        render: beneficiaries.show with:beneficiary
-      edit:
-        find: Beneficiary
-        render: beneficiaries.edit with:beneficiary
-      update:
-        validate: beneficiary
-        update: Beneficiary
-        respond: beneficiaries.index
-      destroy:
-        delete: Beneficiary
-        respond: beneficiaries.index
+    index:
+      query: all
+      render: beneficiaries.index with:beneficiaries
+    create:
+      render: beneficiaries.create
+    store:
+      validate: beneficiary
+      save: Beneficiary
+      respond: beneficiaries.index
+    show:
+      find: Beneficiary
+      render: beneficiaries.show with:beneficiary
+    edit:
+      find: Beneficiary
+      render: beneficiaries.edit with:beneficiary
+    update:
+      validate: beneficiary
+      update: Beneficiary
+      respond: beneficiaries.index
+    destroy:
+      delete: Beneficiary
+      respond: beneficiaries.index
 
   PhoneBeneficiaryController:
-    actions:
-      index:
-        query: all
-        render: phone_beneficiaries.index with:phone_beneficiaries
-      create:
-        render: phone_beneficiaries.create
-      store:
-        validate: phone_beneficiary
-        save: PhoneBeneficiary
-        respond: phone_beneficiaries.index
-      show:
-        find: PhoneBeneficiary
-        render: phone_beneficiaries.show with:phone_beneficiary
-      edit:
-        find: PhoneBeneficiary
-        render: phone_beneficiaries.edit with:phone_beneficiary
-      update:
-        validate: phone_beneficiary
-        update: PhoneBeneficiary
-        respond: phone_beneficiaries.index
-      destroy:
-        delete: PhoneBeneficiary
-        respond: phone_beneficiaries.index
+    index:
+      query: all
+      render: phone_beneficiaries.index with:phone_beneficiaries
+    create:
+      render: phone_beneficiaries.create
+    store:
+      validate: phone_beneficiary
+      save: PhoneBeneficiary
+      respond: phone_beneficiaries.index
+    show:
+      find: PhoneBeneficiary
+      render: phone_beneficiaries.show with:phone_beneficiary
+    edit:
+      find: PhoneBeneficiary
+      render: phone_beneficiaries.edit with:phone_beneficiary
+    update:
+      validate: phone_beneficiary
+      update: PhoneBeneficiary
+      respond: phone_beneficiaries.index
+    destroy:
+      delete: PhoneBeneficiary
+      respond: phone_beneficiaries.index
 
   CallController:
-    actions:
-      index:
-        query: all
-        render: calls.index with:calls
-      create:
-        render: calls.create
-      store:
-        validate: call
-        save: Call
-        respond: calls.index
-      show:
-        find: Call
-        render: calls.show with:call
-      edit:
-        find: Call
-        render: calls.edit with:call
-      update:
-        validate: call
-        update: Call
-        respond: calls.index
-      destroy:
-        delete: Call
-        respond: calls.index
+    index:
+      query: all
+      render: calls.index with:calls
+    create:
+      render: calls.create
+    store:
+      validate: call
+      save: Call
+      respond: calls.index
+    show:
+      find: Call
+      render: calls.show with:call
+    edit:
+      find: Call
+      render: calls.edit with:call
+    update:
+      validate: call
+      update: Call
+      respond: calls.index
+    destroy:
+      delete: Call
+      respond: calls.index
 
   MedicalDataController:
-    actions:
-      index:
-        query: all
-        render: medical_data.index with:medical_data
-      create:
-        render: medical_data.create
-      store:
-        validate: medical_data
-        save: MedicalData
-        respond: medical_data.index
-      show:
-        find: MedicalData
-        render: medical_data.show with:medical_data
-      edit:
-        find: MedicalData
-        render: medical_data.edit with:medical_data
-      update:
-        validate: medical_data
-        update: MedicalData
-        respond: medical_data.index
-      destroy:
-        delete: MedicalData
-        respond: medical_data.index
+    index:
+      query: all
+      render: medical_data.index with:medical_data
+    create:
+      render: medical_data.create
+    store:
+      validate: medical_data
+      save: MedicalData
+      respond: medical_data.index
+    show:
+      find: MedicalData
+      render: medical_data.show with:medical_data
+    edit:
+      find: MedicalData
+      render: medical_data.edit with:medical_data
+    update:
+      validate: medical_data
+      update: MedicalData
+      respond: medical_data.index
+    destroy:
+      delete: MedicalData
+      respond: medical_data.index
+
   ContactController:
-    actions:
-      index:
-        query: all
-        render: contacts.index with:contacts
-      create:
-        render: contacts.create
-      store:
-        validate: contact
-        save: Contact
-        respond: contacts.index
-      show:
-        find: Contact
-        render: contacts.show with:contact
-      edit:
-        find: Contact
-        render: contacts.edit with:contact
-      update:
-        validate: contact
-        update: Contact
-        respond: contacts.index
-      destroy:
-        delete: Contact
-        respond: contacts.index
+    index:
+      query: all
+      render: contacts.index with:contacts
+    create:
+      render: contacts.create
+    store:
+      validate: contact
+      save: Contact
+      respond: contacts.index
+    show:
+      find: Contact
+      render: contacts.show with:contact
+    edit:
+      find: Contact
+      render: contacts.edit with:contact
+    update:
+      validate: contact
+      update: Contact
+      respond: contacts.index
+    destroy:
+      delete: Contact
+      respond: contacts.index
 
   PhoneContactController:
-    actions:
-      index:
-        query: all
-        render: phone_contacts.index with:phone_contacts
-      create:
-        render: phone_contacts.create
-      store:
-        validate: phone_contact
-        save: PhoneContact
-        respond: phone_contacts.index
-      show:
-        find: PhoneContact
-        render: phone_contacts.show with:phone_contact
-      edit:
-        find: PhoneContact
-        render: phone_contacts.edit with:phone_contact
-      update:
-        validate: phone_contact
-        update: PhoneContact
-        respond: phone_contacts.index
-      destroy:
-        delete: PhoneContact
-        respond: phone_contacts.index
+    index:
+      query: all
+      render: phone_contacts.index with:phone_contacts
+    create:
+      render: phone_contacts.create
+    store:
+      validate: phone_contact
+      save: PhoneContact
+      respond: phone_contacts.index
+    show:
+      find: PhoneContact
+      render: phone_contacts.show with:phone_contact
+    edit:
+      find: PhoneContact
+      render: phone_contacts.edit with:phone_contact
+    update:
+      validate: phone_contact
+      update: PhoneContact
+      respond: phone_contacts.index
+    destroy:
+      delete: PhoneContact
+      respond: phone_contacts.index
 
   AddressController:
-    actions:
-      index:
-        query: all
-        render: addresses.index with:addresses
-      create:
-        render: addresses.create
-      store:
-        validate: address
-        save: Address
-        respond: addresses.index
-      show:
-        find: Address
-        render: addresses.show with:address
-      edit:
-        find: Address
-        render: addresses.edit with:address
-      update:
-        validate: address
-        update: Address
-        respond: addresses.index
-      destroy:
-        delete: Address
-        respond: addresses.index
+    index:
+      query: all
+      render: addresses.index with:addresses
+    create:
+      render: addresses.create
+    store:
+      validate: address
+      save: Address
+      respond: addresses.index
+    show:
+      find: Address
+      render: addresses.show with:address
+    edit:
+      find: Address
+      render: addresses.edit with:address
+    update:
+      validate: address
+      update: Address
+      respond: addresses.index
+    destroy:
+      delete: Address
+      respond: addresses.index
 
   ReminderController:
-    actions:
-      index:
-        query: all
-        render: reminders.index with:reminders
-      create:
-        render: reminders.create
-      store:
-        validate: reminder
-        save: Reminder
-        respond: reminders.index
-      show:
-        find: Reminder
-        render: reminders.show with:reminder
-      edit:
-        find: Reminder
-        render: reminders.edit with:reminder
-      update:
-        validate: reminder
-        update: Reminder
-        respond: reminders.index
-      destroy:
-        delete: Reminder
-        respond: reminders.index
+    index:
+      query: all
+      render: reminders.index with:reminders
+    create:
+      render: reminders.create
+    store:
+      validate: reminder
+      save: Reminder
+      respond: reminders.index
+    show:
+      find: Reminder
+      render: reminders.show with:reminder
+    edit:
+      find: Reminder
+      render: reminders.edit with:reminder
+    update:
+      validate: reminder
+      update: Reminder
+      respond: reminders.index
+    destroy:
+      delete: Reminder
+      respond: reminders.index
+
 
 
 
