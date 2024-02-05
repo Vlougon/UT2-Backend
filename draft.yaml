@@ -15,21 +15,19 @@ models:
 
   Phone_User:
     user_id: id
-    name: string
-    first_surname: string
-    birth_date: date
-    relationships:
-      belongsTo: User
+    phone_number: string
+
 
   Beneficiary:
     name: string
-    phone_number: string
     gender: enum:Male,Female,Other
     marital_status: enum:Single,Engaged,Married,Divorced,Uncoupled,Widower
     beneficiary_type: enum:Above65,65-45,44-30,29-19,18-12,Below12
     social_security_number: string
-    rutine: string
+    rutine: text
+    first_surname: string
     second_surname: string
+    birth_date: date
     relationships:
       hasMany: Call, Reminder, Phone_Beneficiary
       hasOne: MedicalData
@@ -38,24 +36,22 @@ models:
 
   Phone_Beneficiary:
     beneficiary_id: id
-    name: string
-    first_surname: string
-    birth_date: date
-    relationships:
-      belongsTo: Beneficiary
+    phone_number: string
+
+#
 
   Call:
     user_id: id
     beneficiary_id: id
-    date_and_time: timestamp
+    date: date
+    time: timestamp
     duration: integer
     call_type: enum:rutinary,emergency
     turn: enum:morning,afternoon,night
     answered_call: boolean
     observations: text
-    time: string
-    relationships:
-      belongsTo: User, Beneficiary
+    description: text
+    contacted_112: boolean
 
   MedicalData:
     beneficiary_id: id
@@ -72,16 +68,12 @@ models:
     preferent_morning_calls_hour: string
     preferent_afternoon_calls_hour: string
     preferent_night_calls_hour: string
-    preferent_day_calls_hour: string
-    relationships:
-      hasOne: Beneficiary
 
   Contact:
-    beneficiary_id: id
-    first_name: string
-    last_name: string
-    contact_type: enum:Familiar,Friend,Partner,Other
+    name: string
+    first_surname: string
     second_surname: string
+    contact_type: enum:Familiar,Friend,Partner,Other
     relationships:
       hasMany: Phone_Contact
       morphMany: Address
@@ -89,14 +81,10 @@ models:
 
   Phone_Contact:
     contact_id: id
-    name: string
-    first_surname: string
-    birth_date: date
-    relationships:
-      belongsTo: Contact
+    phone_number: string
+
 
   Address:
-    beneficiary_id: id
     locality: string
     postal_code: string
     province: string
@@ -109,16 +97,14 @@ models:
   Reminder:
     user_id: id
     beneficiary_id: id
-    date_and_time: timestamp
-    description: text
-    status: enum:pending,successful,failed
+    title: string
     terminated: enum:Yes,No
-    full_date: string
+    start_date: date
+    end_date: date
     observations: text
-    full_time: string
-    annotation_id: integer
-    relationships:
-      belongsTo: User , Beneficiary
+    start_time: time
+    end_time: time
+
 
 # --------------------------------------------------------------------------------------
 #                               ** SEEDERS **           
@@ -136,110 +122,70 @@ controllers:
   Api\UserController:
     index:
       query: all 
-      render: users.index with:users
       respond: 200
-    create:
-      render: users.create with:user
     store:
       validate: name, password, role, email
       save: User
-      flash: Usuario creado exitosamente.
-      redirect: user.index
       respond: 201
     show:
-      find: User.id
-      render: users.show with:user
       respond: 200
     edit:
-      find: User.id
-      render: users.edit with:user
       respond: 200
     update:
       validate: name, password, role, email
-      update: User.id
-      flash: Usuario actualizado exitosamente.
-      redirect: user.index with:user
+      update: User
       respond: 200
     destroy:
-      find: User.id
       delete: User
-      flash: Usuario eliminado exitosamente.
-      redirect: user.index with:user
-      respond: 200
+      respond: 204
     error:
       respond: 400
 
   Api\PhoneUserController:
     index:
       query: all
-      render: phone_users.index with:phone_users
       respond: 200
     create:
-      render: phone_users.create with:phone_user
       respond: 200
     store:
-      validate: user_id, name, first_surname, birth_date
+      validate: user_id, phone_number
       save: PhoneUser
-      flash: PhoneUser creado exitosamente.
-      redirect: phone_users.index
       respond: 201
     show:
-      find: PhoneUser.id
-      render: phone_users.show with:phone_user
       respond: 200
     edit:
-      find: PhoneUser.id
-      render: phone_users.edit with:phone_user
       respond: 200
     update:
-      validate: user_id, name, first_surname, birth_date
-      update: PhoneUser.id
-      flash: PhoneUser actualizado exitosamente.
-      redirect: phone_users.index with:phone_user
+      validate: user_id, phone_number
+      update: PhoneUser
       respond: 200
     destroy:
-      find: PhoneUser.id
       delete: PhoneUser
-      flash: PhoneUser eliminado exitosamente.
-      redirect: phone_users.index with:phone_user
-      respond: 200
+      respond: 204
     error:
       respond: 400
 
   Api\BeneficiaryController:
     index:
       query: all
-      render: beneficiaries.index with:beneficiaries
       respond: 200
     create:
-      render: beneficiaries.create with:beneficiary
       respond: 200
     store:
-      validate: name, phone_number, gender, marital_status, beneficiary_type, social_security_number, rutine, second_surname
+      validate: name, gender, marital_status, beneficiary_type, social_security_number, rutine, second_surname, birth_date
       save: Beneficiary
-      flash: Beneficiary creado exitosamente.
-      redirect: beneficiaries.index
       respond: 201
     show:
-      find: Beneficiary.id
-      render: beneficiaries.show with:beneficiary
       respond: 200
     edit:
-      find: Beneficiary.id
-      render: beneficiaries.edit with:beneficiary
       respond: 200
     update:
       validate: name, phone_number, gender, marital_status, beneficiary_type, social_security_number, rutine, second_surname
-      update: Beneficiary.id
-      flash: Beneficiary actualizado exitosamente.
-      redirect: beneficiaries.index with:beneficiary
+      update: Beneficiary
       respond: 200
     destroy:
-      find: Beneficiary.id
       delete: Beneficiary
-      flash: Beneficiary eliminado exitosamente.
-      redirect: beneficiaries.index with:beneficiary
-      respond: 200
+      respond: 204
     error:
       respond: 400
 
@@ -247,248 +193,157 @@ controllers:
   Api\PhoneBeneficiaryController:
     index:
       query: all
-      render: phone_beneficiaries.index with:phone_beneficiaries
       respond: 200
     create:
-      render: phone_beneficiaries.create with:phone_beneficiary
       respond: 200
     store:
-      validate: beneficiary_id, name, first_surname, birth_date
+      validate: beneficiary_id, phone_number
       save: PhoneBeneficiary
-      flash: PhoneBeneficiary creado exitosamente.
-      redirect: phone_beneficiaries.index
       respond: 201
     show:
-      find: PhoneBeneficiary.id
-      render: phone_beneficiaries.show with:phone_beneficiary
       respond: 200
     edit:
-      find: PhoneBeneficiary.id
-      render: phone_beneficiaries.edit with:phone_beneficiary
       respond: 200
     update:
-      validate: beneficiary_id, name, first_surname, birth_date
-      update: PhoneBeneficiary.id
-      flash: PhoneBeneficiary actualizado exitosamente.
-      redirect: phone_beneficiaries.index with:phone_beneficiary
+      validate: beneficiary_id, phone_number
+      update: PhoneBeneficiary
       respond: 200
     destroy:
-      find: PhoneBeneficiary.id
       delete: PhoneBeneficiary
-      flash: PhoneBeneficiary eliminado exitosamente.
-      redirect: phone_beneficiaries.index with:phone_beneficiary
-      respond: 200
+      respond: 204
     error:
       respond: 400
 
   Api\CallController:
     index:
       query: all
-      render: calls.index with:calls
       respond: 200
     create:
-      render: calls.create
       respond: 200
     store:
       validate: user_id, beneficiary_id, date_and_time, duration, call_type, turn, answered_call, observations, time
       save: Call
-      flash: Call creada exitosamente.
-      redirect: calls.index
       respond: 201
     show:
-      find: Call.id
-      render: calls.show with:call
       respond: 200
     edit:
-      find: Call.id
-      render: calls.edit with:call
       respond: 200
     update:
-      validate: user_id, beneficiary_id, date_and_time, duration, call_type, turn, answered_call, observations, time
-      update: Call.id
-      flash: Call atualizada exitosamente.
-      redirect: calls.index with:call
+      validate: user_id, beneficiary_id, date, time, duration, call_type, turn, answered_call, observations, description, contacted_112
+      update: Call
       respond: 200
     destroy:
-      find: Call.id
       delete: Call
-      flash: Call eliminado exitosamente.
-      redirect: calls.index with:call
-      respond: 200
+      respond: 204
     error:
       respond: 400
 
   Api\MedicalDataController:
     index:
       query: all
-      render: medical_data.index with:medical_data
       respond: 200
     create:
-      render: medical_data.create
       respond: 200
     store:
-      validate: beneficiary_id, allergies, morning_medication, afternoon_medication, night_medication, emergency_room_on_town, firehouse_on_town, police_station_on_town, outpatient_clinic_on_town, ambulance_on_town, illnesses, preferent_morning_calls_hour, preferent_afternoon_calls_hour, preferent_night_calls_hour, preferent_day_calls_hour
+      validate: beneficiary_id, allergies, morning_medication, afternoon_medication, night_medication, emergency_room_on_town, firehouse_on_town, police_station_on_town, outpatient_clinic_on_town, ambulance_on_town, illnesses, preferent_morning_calls_hour, preferent_afternoon_calls_hour, preferent_night_calls_hour
       save: MedicalData
-      flash: MedicalData creado exitosamente.
-      redirect: medical_data.index with:medical_data
       respond: 201
     show:
-      find: MedicalData.id
-      render: medical_data.show with:medical_data
       respond: 200
     edit:
-      find: MedicalData.id
-      render: medical_data.edit with:medical_data
       respond: 200
     update:
-      validate: beneficiary_id, allergies, morning_medication, afternoon_medication, night_medication, emergency_room_on_town, firehouse_on_town, police_station_on_town, outpatient_clinic_on_town, ambulance_on_town, illnesses, preferent_morning_calls_hour, preferent_afternoon_calls_hour, preferent_night_calls_hour, preferent_day_calls_hour
-      update: MedicalData.id
-      flash: MedicalData actualizado exitosamente.
-      redirect: medical_data.index with:medical_data
+      validate: beneficiary_id, allergies, morning_medication, afternoon_medication, night_medication, emergency_room_on_town, firehouse_on_town, police_station_on_town, outpatient_clinic_on_town, ambulance_on_town, illnesses, preferent_morning_calls_hour, preferent_afternoon_calls_hour, preferent_night_calls_hour,
+      update: MedicalData
       respond: 200
     destroy:
-      find: MedicalData.id
       delete: MedicalData
-      flash: MedicalData eliminado exitosamente.
-      redirect: medical_data.index with:medical_data
-      respond: 200
+      respond: 204
 
   Api\ContactController:
     index:
       query: all
-      render: contacts.index with:contacts
       respond: 200
     create:
-      render: contacts.create
       respond: 200
     store:
-      validate: beneficiary_id, first_name, last_name, contact_type, second_surname
+      validate: name, first_name, second_surname, contact_type
       save: Contact
-      flash: Contact creado exitosamente.
-      redirect: contacts.index with:contacts
       respond: 201
     show:
-      find: Contact.id
-      render: contacts.show with:contact
       respond: 200
     edit:
-      find: Contact.id
-      render: contacts.edit with:contact
       respond: 200
     update:
-      validate: beneficiary_id, first_name, last_name, contact_type, second_surname
-      update: Contact.id
-      flash: Contact actualizado exitosamente.
-      redirect: contacts.index with:contacts
+      validate: name, first_name, second_surname, contact_type
+      update: Contact
       respond: 200
     destroy:
-      find: Contact.id
       delete: Contact
-      flash: Contact eliminado exitosamente.
-      redirect: contacts.index with:contacts
-      respond: 200
+      respond: 204
 
   Api\PhoneContactController:
     index:
       query: all
-      render: phone_contacts.index with:phone_contacts
       respond: 200
     create:
-      render: phone_contacts.create
       respond: 200
     store:
-      validate: contact_id, name, first_surname, birth_date
+      validate: contact_id, phone_number
       save: PhoneContact
-      flash: PhoneContact creado exitosamente.
-      redirect: phone_contacts.index with:phone_contacts
       respond: 201
     show:
-      find: PhoneContact.id
-      render: phone_contacts.show with:phone_contact
       respond: 200
     edit:
-      find: PhoneContact.id
-      render: phone_contacts.edit with:phone_contact
       respond: 200
     update:
-      validate: contact_id, name, first_surname, birth_date
-      update: PhoneContact.id
-      flash: PhoneContact actualizado exitosamente.
-      redirect: phone_contacts.index with:phone_contacts
+      validate: contact_id, phone_number
+      update: PhoneContact
       respond: 200
     destroy:
-      find: PhoneContact.id
       delete: PhoneContact
-      flash: PhoneContact eliminado exitosamente.
-      redirect: phone_contacts.index with:phone_contacts
-      respond: 200
+      respond: 204
 
   Api\AddressController:
     index:
       query: all
-      render: addresses.index with:addresses
       respond: 200
     create:
-      render: addresses.create
       respond: 200
     store:
-      validate: beneficiary_id, locality, postal_code, province, number, street
+      validate: locality, postal_code, province, number, street
       save: Address
-      flash: Address creado exitosamente.
-      redirect: addresses.index with:addresses
       respond: 201
     show:
-      find: Address.id
-      render: addresses.show with:address
       respond: 200
     edit:
-      find: Address.id
-      render: addresses.edit with:address
       respond: 200
     update:
       validate: beneficiary_id, locality, postal_code, province, number, street
-      update: Address.id
-      flash: Address actualizado exitosamente.
-      redirect: addresses.index with:addresses
+      update: Address  
       respond: 200
     destroy:
-      find: Address.id
       delete: Address
-      flash: Address eliminado exitosamente.
-      redirect: addresses.index with:addresses
-      respond: 200
+      respond: 204
 
   Api\ReminderController:
     index:
       query: all
-      render: reminders.index with:reminders
       respond: 200
     create:
-      render: reminders.create
       respond: 200
     store:
-      validate: user_id, beneficiary_id, date_and_time, description, status, terminated, full_date, observations, full_time, annotation_id
+      validate: user_id, beneficiary_id, title, terminated, observations, start_date, end_date, start_time, end_time
       save: Reminder
-      flash: Reminder creado exitosamente.
-      redirect: reminders.index with:reminders
       respond: 201
     show:
-      find: Reminder.id
-      render: reminders.show with:reminder
       respond: 200
     edit:
-      find: Reminder.id
-      render: reminders.edit with:reminder
       respond: 200
     update:
-      validate: user_id, beneficiary_id, date_and_time, description, status, terminated, full_date, observations, full_time, annotation_id
-      update: Reminder.id
-      flash: Reminder actualizado exitosamente.
-      redirect: reminders.index with:reminders
+      validate: user_id, beneficiary_id, title, terminated, observations, start_date, end_date, start_time, end_time
+      update: Reminder
       respond: 200
     destroy:
-      find: Reminder.id
       delete: Reminder
-      flash: Reminder eliminado exitosamente.
-      redirect: reminders.index with:reminders
-      respond: 200
+      respond: 204
