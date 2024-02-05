@@ -132,7 +132,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: name, password, role, email
       update: User
       respond: 200
     destroy:
@@ -156,7 +155,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: user_id, phone_number
       update: PhoneUser
       respond: 200
     destroy:
@@ -180,7 +178,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: name, phone_number, gender, marital_status, beneficiary_type, social_security_number, rutine, second_surname
       update: Beneficiary
       respond: 200
     destroy:
@@ -205,7 +202,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: beneficiary_id, phone_number
       update: PhoneBeneficiary
       respond: 200
     destroy:
@@ -229,7 +225,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: user_id, beneficiary_id, date, time, duration, call_type, turn, answered_call, observations, description, contacted_112
       update: Call
       respond: 200
     destroy:
@@ -253,7 +248,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: beneficiary_id, allergies, morning_medication, afternoon_medication, night_medication, emergency_room_on_town, firehouse_on_town, police_station_on_town, outpatient_clinic_on_town, ambulance_on_town, illnesses, preferent_morning_calls_hour, preferent_afternoon_calls_hour, preferent_night_calls_hour,
       update: MedicalData
       respond: 200
     destroy:
@@ -275,7 +269,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: name, first_name, second_surname, contact_type
       update: Contact
       respond: 200
     destroy:
@@ -297,7 +290,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: contact_id, phone_number
       update: PhoneContact
       respond: 200
     destroy:
@@ -319,7 +311,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: beneficiary_id, locality, postal_code, province, number, street
       update: Address  
       respond: 200
     destroy:
@@ -341,7 +332,6 @@ controllers:
     edit:
       respond: 200
     update:
-      validate: user_id, beneficiary_id, title, terminated, observations, start_date, end_date, start_time, end_time
       update: Reminder
       respond: 200
     destroy:
