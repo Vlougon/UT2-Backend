@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactStoreRequest extends FormRequest
+class ContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +21,7 @@ class ContactStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'name' => ['required', 'string'],
             'first_surname' => ['required', 'string'],
-            'second_surname' => ['required', 'string'],
-            'contact_type' => ['required', 'in:Familiar,Friend,Partner,Other'],
             'second_surname' => ['required', 'string'],
             'contact_type' => ['required', 'in:Familiar,Friend,Partner,Other'],
         ];

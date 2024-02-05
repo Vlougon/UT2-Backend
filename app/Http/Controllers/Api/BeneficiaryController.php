@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\BeneficiaryControllerStoreRequest;
+use App\Http\Requests\Api\BeneficiaryRequest;
 use App\Models\Beneficiary;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,7 +22,7 @@ class BeneficiaryController extends Controller
         return response()->noContent(200);
     }
 
-    public function store(BeneficiaryControllerStoreRequest $request): Response
+    public function store(BeneficiaryRequest $request): Response
     {
         $beneficiary = Beneficiary::create($request->validated());
 
@@ -39,9 +39,9 @@ class BeneficiaryController extends Controller
         return response()->noContent(200);
     }
 
-    public function update(Request $request, Beneficiary $beneficiary): Response
+    public function update(BeneficiaryRequest $request, Beneficiary $beneficiary): Response
     {
-        $beneficiary->update([]);
+        $beneficiary->update($request->validated());
 
         return response()->noContent(200);
     }

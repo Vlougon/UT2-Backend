@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\AddressControllerStoreRequest;
+use App\Http\Requests\Api\AddressRequest;
 use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AddressController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(): Response
     {
         $addresses = Address::all();
 
@@ -22,11 +22,17 @@ class AddressController extends Controller
         return response()->noContent(200);
     }
 
-    public function store(AddressControllerStoreRequest $request): Response
+    public function store(AddressRequest $request)
     {
         $address = Address::create($request->validated());
 
-        return response()->noContent(201);
+        $response = [
+            'status' => 'success',
+            'message' => '¡Se ha encontrado el User!',
+            'data' => $address,
+        ];
+
+        return response()->json($response, 200);
     }
 
     public function show(Request $request, Address $address): Response
@@ -39,11 +45,25 @@ class AddressController extends Controller
         return response()->noContent(200);
     }
 
-    public function update(Request $request, Address $address): Response
+    public function update(AddressRequest $request, Address $address)
     {
-        $address->update([]);
 
-        return response()->noContent(200);
+        if (is_null($address)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el usuario Indicado!',
+            ], 200);
+        }
+
+        $address->update($request->validated());
+
+        $response = [
+            'status' => 'success',
+            'message' => '¡Se ha actualizado exitosamente el Usuario!',
+            'data' => new Address($address),
+        ];
+
+        return response()->json($response, 200);
     }
 
     public function destroy(Request $request, Address $address): Response
