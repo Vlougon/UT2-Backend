@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('phone__beneficiaries', function (Blueprint $table) {
+        Schema::create('phone_contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('beneficiary_id');
+            $table->foreignId('contact_id')->constrained()->cascadeOnDelete();;
             $table->string('phone_number');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('phone__beneficiaries');
+        Schema::dropIfExists('phone_contacts');
     }
 };

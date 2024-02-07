@@ -3,53 +3,84 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\UserControllerStoreRequest;
+use App\Http\Requests\Api\UserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $users = User::all();
+        $users = UserResource::collection(User::latest()->get());
 
-        return response()->noContent(200);
+        if ($users->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron usuarios.',
+                'data' => [],
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuarios encontrados exitosamente.',
+            'data' => $users,
+        ], 200);
     }
 
-    public function store(UserControllerStoreRequest $request): Response
+    public function store(UserRequest $request)
     {
         $user = User::create($request->validated());
 
-        return response()->noContent(201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new UserResource($user),
+        ], 201);
     }
 
-    public function show(Request $request, User $user): Response
+    public function update(UserRequest $request, User $user)
     {
-        return response()->noContent(200);
+        if (is_null($user)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el usuario indicado!',
+            ], 404);
+        }
+
+        $user->update($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '¡Usuario actualizado exitosamente!',
+            'data' => new UserResource($user),
+        ], 200);
     }
 
-    public function edit(Request $request, User $user): Response
+    public function destroy(User $user)
     {
-        return response()->noContent(200);
-    }
+        if (is_null($user)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el usuario indicado!',
+            ], 404);
+        }
 
-    public function update(Request $request, User $user): Response
-    {
-        $user->update([]);
-
-        return response()->noContent(200);
-    }
-
-    public function destroy(Request $request, User $user): Response
-    {
         $user->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => '¡Usuario eliminado exitosamente!',
+            'data' => null,
+        ], 200);
     }
 
-    public function error(Request $request): Response
+    public function error()
     {
-        return response()->noContent(400);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }
+

@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Beneficiary;
-use App\Models\Phone_Beneficiary;
+use App\Models\PhoneBeneficiary;
 
 class PhoneBeneficiaryFactory extends Factory
 {
@@ -21,8 +20,10 @@ class PhoneBeneficiaryFactory extends Factory
      */
     public function definition(): array
     {
+        $beneficiary = Beneficiary::inRandomOrder()->first();
+
         return [
-            'beneficiary_id' => Beneficiary::factory(),
+            'beneficiary_id' => $beneficiary->id,
             'phone_number' => $this->faker->phoneNumber(),
         ];
     }

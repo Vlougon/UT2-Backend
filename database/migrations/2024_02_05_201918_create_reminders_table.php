@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('beneficiary_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();;
             $table->string('title');
             $table->enum('terminated', ["Yes","No"]);
             $table->date('start_date');

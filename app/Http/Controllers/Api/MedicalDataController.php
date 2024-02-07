@@ -3,53 +3,58 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\MedicalDataControllerStoreRequest;
+use App\Http\Requests\Api\MedicalDataRequest;
+use App\Http\Resources\MedicalDataResource;
 use App\Models\MedicalData;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class MedicalDataController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $medicalData = MedicalDatum::all();
+        $medicalData = MedicalDataResource::collection(MedicalData::all());
 
-        return response()->noContent(200);
+        if ($medicalData->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron datos médicos.',
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Datos médicos obtenidos correctamente.',
+            'data' => $medicalData,
+        ], 200);
     }
 
-    public function create(Request $request): Response
+    public function update(MedicalDataRequest $request, MedicalData $medicalDatum)
     {
-        return response()->noContent(200);
+        $medicalDatum->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Datos médicos actualizados correctamente.',
+            'data' => $medicalDatum,
+        ], 200);
     }
 
-    public function store(MedicalDataControllerStoreRequest $request): Response
+    public function destroy(MedicalData $medicalDatum)
     {
-        $medicalData = MedicalData::create($request->validated());
+        $medicalDatum->delete();
 
-        return response()->noContent(201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Datos médicos eliminados correctamente.',
+            'data' => null,
+        ], 200);
     }
 
-    public function show(Request $request, MedicalDatum $medicalDatum): Response
+    public function error()
     {
-        return response()->noContent(200);
-    }
-
-    public function edit(Request $request, MedicalDatum $medicalDatum): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function update(Request $request, MedicalDatum $medicalDatum): Response
-    {
-        $medicalData->update([]);
-
-        return response()->noContent(200);
-    }
-
-    public function destroy(Request $request, MedicalDatum $medicalDatum): Response
-    {
-        $medicalData->delete();
-
-        return response()->noContent();
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }

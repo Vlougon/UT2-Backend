@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use App\Models\Phone_User;
+use App\Models\PhoneUser;
 use App\Models\User;
 
 class PhoneUserFactory extends Factory
@@ -21,8 +20,10 @@ class PhoneUserFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+
         return [
-            'user_id' => User::factory(),
+            'user_id' => $user->id,
             'phone_number' => $this->faker->phoneNumber(),
         ];
     }

@@ -3,53 +3,57 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\ReminderControllerStoreRequest;
+use App\Http\Requests\Api\ReminderRequest;
+use App\Http\Resources\ReminderResource;
 use App\Models\Reminder;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ReminderController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $reminders = Reminder::all();
+        $reminders = ReminderResource::collection(Reminder::all());
 
-        return response()->noContent(200);
+        if ($reminders->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron recordatorios.',
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Recordatorios obtenidos correctamente.',
+            'data' => $reminders,
+        ], 200);
     }
 
-    public function create(Request $request): Response
+    public function update(ReminderRequest $request, Reminder $reminder)
     {
-        return response()->noContent(200);
+        $reminder->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Recordatorio actualizado correctamente.',
+            'data' => new ReminderResource($reminder),
+        ], 200);
     }
 
-    public function store(ReminderControllerStoreRequest $request): Response
-    {
-        $reminder = Reminder::create($request->validated());
-
-        return response()->noContent(201);
-    }
-
-    public function show(Request $request, Reminder $reminder): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function edit(Request $request, Reminder $reminder): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function update(Request $request, Reminder $reminder): Response
-    {
-        $reminder->update([]);
-
-        return response()->noContent(200);
-    }
-
-    public function destroy(Request $request, Reminder $reminder): Response
+    public function destroy(Reminder $reminder)
     {
         $reminder->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Recordatorio eliminado correctamente.',
+            'data' => null,
+        ], 200);
+    }
+
+    public function error()
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }

@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Contact;
-use App\Models\Phone_Contact;
+use App\Models\PhoneContact;
 
 class PhoneContactFactory extends Factory
 {
@@ -21,8 +20,10 @@ class PhoneContactFactory extends Factory
      */
     public function definition(): array
     {
+        $contact = Contact::inRandomOrder()->first();
+
         return [
-            'contact_id' => Contact::factory(),
+            'contact_id' => $contact->id,
             'phone_number' => $this->faker->phoneNumber(),
         ];
     }

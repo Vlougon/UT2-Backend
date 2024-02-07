@@ -22,9 +22,11 @@ class ReminderFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $beneficiary = Beneficiary::inRandomOrder()->first();
         return [
-            'user_id' => User::factory(),
-            'beneficiary_id' => Beneficiary::factory(),
+            'user_id' => $user->id,
+            'beneficiary_id' => $beneficiary->id,
             'title' => $this->faker->sentence(4),
             'terminated' => $this->faker->randomElement(["Yes","No"]),
             'start_date' => $this->faker->date(),

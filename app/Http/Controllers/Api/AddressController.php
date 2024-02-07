@@ -4,72 +4,83 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AddressRequest;
+use App\Http\Resources\AddressResource;
 use App\Models\Address;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class AddressController extends Controller
 {
-    public function index(): Response
+    public function index()
     {
-        $addresses = Address::all();
+        $addresses = AddressResource::collection(Address::latest()->get());
 
-        return response()->noContent(200);
-    }
+        if ($addresses->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron direcciones.',
+                'data' => [],
+            ], 404);
+        }
 
-    public function create(Request $request): Response
-    {
-        return response()->noContent(200);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Direcciones encontradas exitosamente.',
+            'data' => $addresses,
+        ], 200);
     }
 
     public function store(AddressRequest $request)
     {
         $address = Address::create($request->validated());
 
-        $response = [
+        return response()->json([
             'status' => 'success',
-            'message' => '¡Se ha encontrado el User!',
-            'data' => $address,
-        ];
-
-        return response()->json($response, 200);
-    }
-
-    public function show(Request $request, Address $address): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function edit(Request $request, Address $address): Response
-    {
-        return response()->noContent(200);
+            'message' => 'Dirección creada exitosamente.',
+            'data' => new AddressResource($address),
+        ], 201);
     }
 
     public function update(AddressRequest $request, Address $address)
     {
-
         if (is_null($address)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado el usuario Indicado!',
-            ], 200);
+                'message' => '¡No se ha encontrado la dirección indicada!',
+            ], 404);
         }
 
         $address->update($request->validated());
 
-        $response = [
+        return response()->json([
             'status' => 'success',
-            'message' => '¡Se ha actualizado exitosamente el Usuario!',
-            'data' => new Address($address),
-        ];
-
-        return response()->json($response, 200);
+            'message' => '¡Se ha actualizado exitosamente la dirección!',
+            'data' => new AddressResource($address),
+        ], 200);
     }
 
-    public function destroy(Request $request, Address $address): Response
+    public function destroy(Address $address)
     {
+        if (is_null($address)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado la dirección indicada!',
+            ], 404);
+        }
+
         $address->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => '¡Dirección eliminada exitosamente!',
+            'data' => null,
+        ], 200);
+    }
+
+    public function error()
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }
+

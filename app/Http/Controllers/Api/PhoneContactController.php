@@ -2,54 +2,59 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Api\PhoneContact;
+use App\Models\PhoneContact;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\PhoneContactControllerStoreRequest;
+use App\Http\Requests\Api\PhoneContactRequest;
+use App\Http\Resources\PhoneContactResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PhoneContactController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $phoneContacts = PhoneContact::all();
+        $phoneContacts = PhoneContactResource::collection(PhoneContact::all());
 
-        return response()->noContent(200);
+        if ($phoneContacts->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron contactos de teléfono.',
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Contactos de teléfono obtenidos correctamente.',
+            'data' => $phoneContacts,
+        ], 200);
     }
 
-    public function create(Request $request): Response
+    public function update(PhoneContactRequest $request, PhoneContact $phoneContact)
     {
-        return response()->noContent(200);
+        $phoneContact->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Contacto de teléfono actualizado correctamente.',
+            'data' => $phoneContact,
+        ], 200);
     }
 
-    public function store(PhoneContactControllerStoreRequest $request): Response
-    {
-        $phoneContact = PhoneContact::create($request->validated());
-
-        return response()->noContent(201);
-    }
-
-    public function show(Request $request, PhoneContact $phoneContact): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function edit(Request $request, PhoneContact $phoneContact): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function update(Request $request, PhoneContact $phoneContact): Response
-    {
-        $phoneContact->update([]);
-
-        return response()->noContent(200);
-    }
-
-    public function destroy(Request $request, PhoneContact $phoneContact): Response
+    public function destroy(PhoneContact $phoneContact)
     {
         $phoneContact->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Contacto de teléfono eliminado correctamente.',
+            'data' => null,
+        ], 200);
+    }
+
+    public function error(Request $request)
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }

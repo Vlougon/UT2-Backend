@@ -21,8 +21,10 @@ class MedicalDataFactory extends Factory
      */
     public function definition(): array
     {
+        $beneficiary = Beneficiary::inRandomOrder()->first();
+
         return [
-            'beneficiary_id' => Beneficiary::factory(),
+            'beneficiary_id' => $beneficiary->id,
             'allergies' => $this->faker->text(),
             'morning_medication' => $this->faker->text(),
             'afternoon_medication' => $this->faker->text(),

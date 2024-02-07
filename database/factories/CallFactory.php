@@ -22,9 +22,12 @@ class CallFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::inRandomOrder()->first();
+        $beneficiary = Beneficiary::inRandomOrder()->first();
+
         return [
-            'user_id' => User::factory(),
-            'beneficiary_id' => Beneficiary::factory(),
+            'user_id' => $user->id,
+            'beneficiary_id' => $beneficiary->id,
             'date' => $this->faker->date(),
             'time' => $this->faker->dateTime(),
             'duration' => $this->faker->numberBetween(-10000, 10000),

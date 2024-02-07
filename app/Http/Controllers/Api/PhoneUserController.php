@@ -2,59 +2,60 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Api\PhoneUser;
+use App\Models\PhoneUser;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\PhoneUserControllerStoreRequest;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Http\Requests\Api\PhoneUserRequest;
+use App\Http\Resources\PhoneUserResource;
 
 class PhoneUserController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $phoneUsers = PhoneUser::all();
+        $phoneUsers = PhoneUserResource::collection(PhoneUser::all());
 
-        return response()->noContent(200);
+        if ($phoneUsers->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron teléfonos para este usuario.',
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Los teléfono del usuario se han obtenidos correctamente.',
+            'data' => $phoneUsers,
+        ], 200);
     }
 
-    public function create(Request $request): Response
+    
+
+    public function update(PhoneUserRequest $request, PhoneUser $phoneUser)
     {
-        return response()->noContent(200);
+        $phoneUser->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Teléfono usuario actualizado correctamente.',
+            'data' => $phoneUser,
+        ], 200);
     }
 
-    public function store(PhoneUserControllerStoreRequest $request): Response
-    {
-        $phoneUser = PhoneUser::create($request->validated());
-
-        return response()->noContent(201);
-    }
-
-    public function show(Request $request, PhoneUser $phoneUser): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function edit(Request $request, PhoneUser $phoneUser): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function update(Request $request, PhoneUser $phoneUser): Response
-    {
-        $phoneUser->update([]);
-
-        return response()->noContent(200);
-    }
-
-    public function destroy(Request $request, PhoneUser $phoneUser): Response
+    public function destroy(PhoneUser $phoneUser)
     {
         $phoneUser->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Teléfono usuario eliminado correctamente.',
+            'data' => null,
+        ], 200);
     }
 
-    public function error(Request $request): Response
+    public function error()
     {
-        return response()->noContent(400);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }

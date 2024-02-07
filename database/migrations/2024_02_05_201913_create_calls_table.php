@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('beneficiary_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();;
+            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();;
             $table->date('date');
             $table->timestamp('time');
             $table->integer('duration');

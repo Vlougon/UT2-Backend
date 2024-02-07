@@ -4,57 +4,83 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BeneficiaryRequest;
+use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class BeneficiaryController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $beneficiaries = Beneficiary::all();
+        $beneficiaries = BeneficiaryResource::collection(Beneficiary::latest()->get());
 
-        return response()->noContent(200);
+        if ($beneficiaries->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron beneficiarios.',
+                'data' => [],
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Beneficiarios encontrados exitosamente.',
+            'data' => $beneficiaries,
+        ], 200);
     }
 
-    public function create(Request $request): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function store(BeneficiaryRequest $request): Response
+    public function store(BeneficiaryRequest $request)
     {
         $beneficiary = Beneficiary::create($request->validated());
 
-        return response()->noContent(201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Beneficiario creado exitosamente.',
+            'data' => new BeneficiaryResource($beneficiary),
+        ], 201);
     }
 
-    public function show(Request $request, Beneficiary $beneficiary): Response
+    public function update(BeneficiaryRequest $request, Beneficiary $beneficiary)
     {
-        return response()->noContent(200);
-    }
+        if (is_null($beneficiary)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el beneficiario indicado!',
+            ], 404);
+        }
 
-    public function edit(Request $request, Beneficiary $beneficiary): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function update(BeneficiaryRequest $request, Beneficiary $beneficiary): Response
-    {
         $beneficiary->update($request->validated());
 
-        return response()->noContent(200);
+        return response()->json([
+            'status' => 'success',
+            'message' => '¡Se ha actualizado exitosamente el beneficiario!',
+            'data' => new BeneficiaryResource($beneficiary),
+        ], 200);
     }
 
-    public function destroy(Request $request, Beneficiary $beneficiary): Response
+    public function destroy(Beneficiary $beneficiary)
     {
+        if (is_null($beneficiary)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el beneficiario indicado!',
+            ], 404);
+        }
+
         $beneficiary->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => '¡Beneficiario eliminado exitosamente!',
+            'data' => null,
+        ], 200);
     }
 
-    public function error(Request $request): Response
+    public function error()
     {
-        return response()->noContent(400);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }

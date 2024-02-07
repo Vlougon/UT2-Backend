@@ -2,59 +2,59 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Api\PhoneBeneficiary;
+use App\Models\PhoneBeneficiary;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\PhoneBeneficiaryControllerStoreRequest;
+use App\Http\Requests\Api\PhoneBeneficiaryRequest;
+use App\Http\Resources\PhoneBeneficiaryResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PhoneBeneficiaryController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $phoneBeneficiaries = PhoneBeneficiary::all();
+        $phoneBeneficiaries = PhoneBeneficiaryResource::collection(PhoneBeneficiary::all());
 
-        return response()->noContent(200);
+        if ($phoneBeneficiaries->isEmpty()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'No se encontraron teléfonos para este beneficiario.',
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Teléfonos de Beneficiario obtenidos correctamente.',
+            'data' => $phoneBeneficiaries,
+        ], 200);
     }
 
-    public function create(Request $request): Response
+    public function update(PhoneBeneficiaryRequest $request, PhoneBeneficiary $phoneBeneficiary)
     {
-        return response()->noContent(200);
+        $phoneBeneficiary->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Teléfono de Beneficiario actualizado correctamente.',
+            'data' => $phoneBeneficiary,
+        ], 200);
     }
 
-    public function store(PhoneBeneficiaryControllerStoreRequest $request): Response
-    {
-        $phoneBeneficiary = PhoneBeneficiary::create($request->validated());
-
-        return response()->noContent(201);
-    }
-
-    public function show(Request $request, PhoneBeneficiary $phoneBeneficiary): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function edit(Request $request, PhoneBeneficiary $phoneBeneficiary): Response
-    {
-        return response()->noContent(200);
-    }
-
-    public function update(Request $request, PhoneBeneficiary $phoneBeneficiary): Response
-    {
-        $phoneBeneficiary->update([]);
-
-        return response()->noContent(200);
-    }
-
-    public function destroy(Request $request, PhoneBeneficiary $phoneBeneficiary): Response
+    public function destroy(PhoneBeneficiary $phoneBeneficiary)
     {
         $phoneBeneficiary->delete();
 
-        return response()->noContent();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Teléfono de Beneficiario eliminado correctamente.',
+            'data' => null,
+        ], 200);
     }
 
-    public function error(Request $request): Response
+    public function error(Request $request)
     {
-        return response()->noContent(400);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Ha ocurrido un error.',
+        ], 400);
     }
 }
