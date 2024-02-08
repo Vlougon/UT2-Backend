@@ -58,23 +58,8 @@ class User extends Model
 
     /*    --      ** Relaciones HasManyThrough **     --     */
 
-    public function contacts(): HasManyThrough
-    {
-        return $this->hasManyThrough(Contact::class, Beneficiary::class);
-    }
-
-    public function addressesHMT(): HasManyThrough
-    {
-        return $this->hasManyThrough(Address::class, Beneficiary::class);
-    }
-
     public function medicalData(): HasManyThrough
     {
-        return $this->hasManyThrough(MedicalData::class, Beneficiary::class);
-    }
-
-    public function phoneBeneficiaries(): HasManyThrough
-    {
-        return $this->hasManyThrough(PhoneBeneficiary::class, Beneficiary::class);
+        return $this->hasManyThrough(MedicalData::class, Call::class);
     }
 }

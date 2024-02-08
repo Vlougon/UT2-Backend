@@ -41,15 +41,6 @@ class Beneficiary extends Model
         'birth_date' => 'date',
     ];
 
-    /*          ** Relación HasManyThrough **          */
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /*          ** Relación HasManyThrough **          */
-
     public function calls(): HasMany
     {
         return $this->hasMany(Call::class);
