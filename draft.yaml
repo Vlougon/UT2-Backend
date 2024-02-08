@@ -20,6 +20,7 @@ models:
 
   Beneficiary:
     name: string
+    dni: string:9
     gender: enum:Male,Female,Other
     marital_status: enum:Single,Engaged,Married,Divorced,Uncoupled,Widower
     beneficiary_type: enum:Above65,65-45,44-30,29-19,18-12,Below12
@@ -38,7 +39,7 @@ models:
     beneficiary_id: id
     phone_number: string
 
-#
+# Al tener los id de user_id y beneficiary_id no hace falta crear las realciones
 
   Call:
     user_id: id

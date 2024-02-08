@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BeneficiaryRequest;
 use App\Http\Resources\BeneficiaryResource;
 use App\Models\Beneficiary;
-use Illuminate\Http\JsonResponse;
 
 class BeneficiaryController extends Controller
 {

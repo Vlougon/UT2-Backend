@@ -28,6 +28,17 @@ class PhoneContactController extends Controller
         ], 200);
     }
 
+    public function store(PhoneContactRequest $request)
+    {
+        $phonecontact = PhoneContact::create($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new PhoneContactResource($phonecontact),
+        ], 201);
+    }
+
     public function update(PhoneContactRequest $request, PhoneContact $phoneContact)
     {
         $phoneContact->update($request->all());

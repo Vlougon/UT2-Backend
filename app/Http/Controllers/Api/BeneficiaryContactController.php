@@ -38,6 +38,7 @@ class BeneficiaryContactController extends Controller
         ], 201);
     }
 
+    
     public function show(BeneficiaryContact $contact)
     {
         return response()->json([

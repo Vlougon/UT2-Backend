@@ -28,6 +28,17 @@ class PhoneBeneficiaryController extends Controller
         ], 200);
     }
 
+    public function store(PhoneBeneficiaryRequest $request)
+    {
+        $phoneBeneficiary = PhoneBeneficiary::create($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new PhoneBeneficiaryResource($phoneBeneficiary),
+        ], 201);
+    }
+
     public function update(PhoneBeneficiaryRequest $request, PhoneBeneficiary $phoneBeneficiary)
     {
         $phoneBeneficiary->update($request->all());

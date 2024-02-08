@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Model
 {
@@ -53,5 +54,27 @@ class User extends Model
     public function phoneUsers(): HasMany
     {
         return $this->hasMany(PhoneUser::class);
+    }
+
+    /*    --      ** Relaciones HasManyThrough **     --     */
+
+    public function contacts(): HasManyThrough
+    {
+        return $this->hasManyThrough(Contact::class, Beneficiary::class);
+    }
+
+    public function addressesHMT(): HasManyThrough
+    {
+        return $this->hasManyThrough(Address::class, Beneficiary::class);
+    }
+
+    public function medicalData(): HasManyThrough
+    {
+        return $this->hasManyThrough(MedicalData::class, Beneficiary::class);
+    }
+
+    public function phoneBeneficiaries(): HasManyThrough
+    {
+        return $this->hasManyThrough(PhoneBeneficiary::class, Beneficiary::class);
     }
 }

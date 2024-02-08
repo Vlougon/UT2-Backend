@@ -52,4 +52,5 @@ class Contact extends Model
     {
         return $this->belongsToMany(Beneficiary::class, 'beneficiary_contacts');
     }
+
 }

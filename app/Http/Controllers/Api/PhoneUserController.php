@@ -27,7 +27,16 @@ class PhoneUserController extends Controller
         ], 200);
     }
 
-    
+    public function store(PhoneUserRequest $request)
+    {
+        $phoneUser = PhoneUser::create($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new PhoneUserResource($phoneUser),
+        ], 201);
+    }
 
     public function update(PhoneUserRequest $request, PhoneUser $phoneUser)
     {

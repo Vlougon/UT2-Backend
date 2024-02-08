@@ -20,6 +20,7 @@ class Beneficiary extends Model
      */
     protected $fillable = [
         'name',
+        'dni',
         'gender',
         'marital_status',
         'beneficiary_type',
@@ -39,6 +40,15 @@ class Beneficiary extends Model
         'id' => 'integer',
         'birth_date' => 'date',
     ];
+
+    /*          ** Relación HasManyThrough **          */
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /*          ** Relación HasManyThrough **          */
 
     public function calls(): HasMany
     {

@@ -28,20 +28,31 @@ class MedicalDataController extends Controller
         ], 200);
     }
 
-    public function update(MedicalDataRequest $request, MedicalData $medicalDatum)
+    public function store(MedicalDataRequest $request)
     {
-        $medicalDatum->update($request->all());
+        $user = User::create($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new MedicalDataResource($user),
+        ], 201);
+    }
+
+    public function update(MedicalDataRequest $request, MedicalData $medicalData)
+    {
+        $medicalData->update($request->all());
 
         return response()->json([
             'status' => 'success',
             'message' => 'Datos médicos actualizados correctamente.',
-            'data' => $medicalDatum,
+            'data' => $medicalData,
         ], 200);
     }
 
-    public function destroy(MedicalData $medicalDatum)
+    public function destroy(MedicalData $medicalData)
     {
-        $medicalDatum->delete();
+        $medicalData->delete();
 
         return response()->json([
             'status' => 'success',

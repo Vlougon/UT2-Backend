@@ -29,6 +29,17 @@ class ContactController extends Controller
         ], 200);
     }
 
+    public function store(ContactRequest $request)
+    {
+        $contact = Contact::create($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new ContactResource($contact),
+        ], 201);
+    }
+
     public function update(ContactRequest $request, Contact $contact)
     {
         $contact->update($request->all());

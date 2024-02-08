@@ -27,6 +27,17 @@ class ReminderController extends Controller
         ], 200);
     }
 
+    public function store(ReminderRequest $request)
+    {
+        $reminder = Reminder::create($request->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new ReminderResource($reminder),
+        ], 201);
+    }
+
     public function update(ReminderRequest $request, Reminder $reminder)
     {
         $reminder->update($request->all());

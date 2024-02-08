@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->varchar('dni');
             $table->enum('gender', ["Male","Female","Other"]);
             $table->enum('marital_status', ["Single","Engaged","Married","Divorced","Uncoupled","Widower"]);
             $table->enum('beneficiary_type', ["Above65","65-45","44-30","29-19","18-12","Below12"]);
