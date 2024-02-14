@@ -20,15 +20,15 @@ class Beneficiary extends Model
      */
     protected $fillable = [
         'name',
-        'dni',
-        'gender',
-        'marital_status',
-        'beneficiary_type',
-        'social_security_number',
-        'rutine',
         'first_surname',
         'second_surname',
         'birth_date',
+        'dni',
+        'social_security_number',
+        'rutine',
+        'gender',
+        'marital_status',
+        'beneficiary_type',
     ];
 
     /**

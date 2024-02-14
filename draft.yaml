@@ -5,9 +5,9 @@
 models:
   User:
     name: string
+    email: string
     password: string
     role: enum:supervisor,assistant
-    email: string
     relationships:
       hasMany: Call, Reminder, Phone_User
 
@@ -17,15 +17,15 @@ models:
 
   Beneficiary:
     name: string
-    dni: string:9
-    gender: enum:Male,Female,Other
-    marital_status: enum:Single,Engaged,Married,Divorced,Uncoupled,Widower
-    beneficiary_type: enum:Above65,65-45,44-30,29-19,18-12,Below12
-    social_security_number: string
-    rutine: text
     first_surname: string
     second_surname: string
     birth_date: date
+    dni: string:9
+    social_security_number: string:12
+    rutine: text
+    gender: enum:Male,Female,Other
+    marital_status: enum:Single,Engaged,Married,Divorced,Uncoupled,Widower
+    beneficiary_type: enum:Above65,65-45,44-30,29-19,18-12,Below12
     relationships:
       hasMany: Call, Reminder, Phone_Beneficiary
       hasOne: MedicalData

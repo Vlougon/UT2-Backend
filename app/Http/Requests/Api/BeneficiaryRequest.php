@@ -20,15 +20,16 @@ class BeneficiaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'dni' =>[ 'required', 'varchar'],
-            'gender' => ['required', 'in:Male,Female,Other'],
-            'marital_status' => ['required', 'in:Single,Engaged,Married,Divorced,Uncoupled,Widower'],
-            'beneficiary_type' => ['required', 'in:Above65,65-45,44-30,29-19,18-12,Below12'],
-            'social_security_number' => ['required', 'string'],
-            'rutine' => ['required', 'string'],
-            'second_surname' => ['required', 'string'],
-            'birth_date' => ['required', 'date'],
+            'name' => 'required|string',
+            'first_surname' => 'required|string',
+            'second_surname' => 'required|string',
+            'birth_date' => 'required|date',
+            'dni' => 'required|string|min:9|max:9',
+            'social_security_number' => 'required|string|min:9|max:9',
+            'rutine' => 'required|text',
+            'gender' => 'required|in:Male,Female,Other',
+            'marital_status' => 'required|in:Single,Engaged,Married,Divorced,Uncoupled,Widower',
+            'beneficiary_type' => 'required|in:Above65,65-45,44-30,29-19,18-12,Below12',
         ];
     }
 }
