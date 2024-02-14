@@ -20,9 +20,9 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'first_surname' => 'required|string',
-            'second_surname' => 'required|string',
+            'name' => 'required|string|max:35',
+            'first_surname' => 'required|string|max:35',
+            'second_surname' => 'required|string|max:35',
             'contact_type' => 'required|in:Familiar,Friend,Partner,Other',
         ];
     }

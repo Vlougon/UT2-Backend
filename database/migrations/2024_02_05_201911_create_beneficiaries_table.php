@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('first_surname');
-            $table->string('second_surname');
+            $table->string('name', 35);
+            $table->string('first_surname', 35);
+            $table->string('second_surname', 35);
             $table->date('birth_date');
             $table->string('dni', 9);
             $table->string('social_security_number', 12);

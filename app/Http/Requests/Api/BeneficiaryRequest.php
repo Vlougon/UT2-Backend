@@ -20,9 +20,9 @@ class BeneficiaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'first_surname' => 'required|string',
-            'second_surname' => 'required|string',
+            'name' => 'required|string|max:35',
+            'first_surname' => 'required|string|max:35',
+            'second_surname' => 'required|string|max:35',
             'birth_date' => 'required|date',
             'dni' => 'required|string|size:9',
             'social_security_number' => 'required|string|size:12',

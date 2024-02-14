@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('first_surname');
-            $table->string('second_surname');
+            $table->string('name', 35);
+            $table->string('first_surname', 35);
+            $table->string('second_surname', 35);
             $table->enum('contact_type', ["Familiar","Friend","Partner","Other"]);
             $table->timestamps();
         });

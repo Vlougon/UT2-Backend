@@ -22,7 +22,7 @@ class ReminderRequest extends FormRequest
         return [
             'user_id' => 'required|integer|exists:users,id',
             'beneficiary_id' => 'required|integer|exists:beneficiaries,id',
-            'title' => 'required|string',
+            'title' => 'required|string|max:100',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'start_time' => 'required',
