@@ -39,6 +39,22 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function show(User $user)
+    {
+        if (is_null($user)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Usuario!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Usuario creado exitosamente.',
+            'data' => new UserResource($user),
+        ], 201);
+    }
+
     public function update(UserRequest $request, User $user)
     {
         if (is_null($user)) {
@@ -83,4 +99,3 @@ class UserController extends Controller
         ], 400);
     }
 }
-
