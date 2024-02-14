@@ -24,7 +24,7 @@ class PhoneUserFactory extends Factory
 
         return [
             'user_id' => $user->id,
-            'phone_number' => $this->faker->phoneNumber(),
+            'phone_number' => $this->faker->numerify('#########'),
         ];
     }
 }

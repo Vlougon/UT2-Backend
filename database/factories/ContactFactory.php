@@ -21,9 +21,9 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'first_surname' => $this->faker->word(),
-            'second_surname' => $this->faker->word(),
+            'name' => Str::limit($this->faker->name(), 35),
+            'first_surname' => Str::limit($this->faker->name(), 35),
+            'second_surname' => Str::limit($this->faker->name(), 35),
             'contact_type' => $this->faker->randomElement(["Familiar","Friend","Partner","Other"]),
         ];
     }

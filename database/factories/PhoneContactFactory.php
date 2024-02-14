@@ -24,7 +24,7 @@ class PhoneContactFactory extends Factory
 
         return [
             'contact_id' => $contact->id,
-            'phone_number' => $this->faker->phoneNumber(),
+            'phone_number' => $this->faker->numerify('#########'),
         ];
     }
 }

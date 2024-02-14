@@ -24,7 +24,7 @@ class PhoneBeneficiaryFactory extends Factory
 
         return [
             'beneficiary_id' => $beneficiary->id,
-            'phone_number' => $this->faker->phoneNumber(),
+            'phone_number' => $this->faker->numerify('#########'),
         ];
     }
 }

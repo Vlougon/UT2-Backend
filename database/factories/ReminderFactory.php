@@ -27,13 +27,13 @@ class ReminderFactory extends Factory
         return [
             'user_id' => $user->id,
             'beneficiary_id' => $beneficiary->id,
-            'title' => $this->faker->sentence(4),
-            'terminated' => $this->faker->randomElement(["Yes","No"]),
+            'title' => $this->faker->text(100),
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),
-            'observations' => $this->faker->text(),
+            'repeat' => $this->faker->text(),
             'start_time' => $this->faker->time(),
             'end_time' => $this->faker->time(),
+            'background_color' => $this->faker->hexColor(),
         ];
     }
 }

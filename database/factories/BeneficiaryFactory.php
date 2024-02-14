@@ -21,15 +21,16 @@ class BeneficiaryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'gender' => $this->faker->randomElement(["Male","Female","Other"]),
-            'marital_status' => $this->faker->randomElement(["Single","Engaged","Married","Divorced","Uncoupled","Widower"]),
-            'beneficiary_type' => $this->faker->randomElement(["Above65","65-45","44-30","29-19","18-12","Below12"]),
-            'social_security_number' => $this->faker->word(),
-            'rutine' => $this->faker->text(),
-            'first_surname' => $this->faker->word(),
-            'second_surname' => $this->faker->word(),
+            'name' => Str::limit($this->faker->name(), 35),
+            'first_surname' => Str::limit($this->faker->name(), 35),
+            'second_surname' => Str::limit($this->faker->name(), 35),
             'birth_date' => $this->faker->date(),
+            'dni' => $this->faker->text(9),
+            'social_security_number' => $this->faker->text(12),
+            'rutine' => $this->faker->text(),
+            'gender' => $this->faker->randomElement(["Male", "Female", "Other"]),
+            'marital_status' => $this->faker->randomElement(["Single", "Engaged", "Married", "Divorced", "Uncoupled", "Widower"]),
+            'beneficiary_type' => $this->faker->randomElement(["Above65", "65-45", "44-30", "29-19", "18-12", "Below12"]),
         ];
     }
 }

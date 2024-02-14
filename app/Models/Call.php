@@ -40,7 +40,6 @@ class Call extends Model
         'user_id' => 'integer',
         'beneficiary_id' => 'integer',
         'date' => 'date',
-        'time' => 'time',
         'answered_call' => 'boolean',
         'contacted_112' => 'boolean',
     ];
