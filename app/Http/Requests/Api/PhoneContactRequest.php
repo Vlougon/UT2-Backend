@@ -20,8 +20,8 @@ class PhoneContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'contact_id' => ['required'],
-            'phone_number' => ['required'],
+            'contact_id' => 'required',
+            'phone_number' => 'required|size:9',
         ];
     }
 }

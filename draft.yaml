@@ -80,7 +80,7 @@ models:
 
   Phone_Contact:
     contact_id: id
-    phone_number: string
+    phone_number: string:9
 
   Address:
     locality: string
