@@ -21,7 +21,7 @@ class PhoneUserRequest extends FormRequest
     {
         return [
             'user_id' => 'required',
-            'phone_number' => 'required|min:9|max:9',
+            'phone_number' => 'required|size:9',
         ];
     }
 }
