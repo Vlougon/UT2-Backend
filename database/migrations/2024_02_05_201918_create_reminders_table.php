@@ -20,8 +20,8 @@ return new class extends Migration
             $table->time('end_time');
             $table->string('repeat');
             $table->string('background_color');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->cascadeOnDelete();
+            $table->foreignId('beneficiary_id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

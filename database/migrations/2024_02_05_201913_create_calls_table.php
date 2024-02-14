@@ -23,8 +23,8 @@ return new class extends Migration
             $table->text('observations');
             $table->text('description');
             $table->boolean('contacted_112');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->cascadeOnDelete();
+            $table->foreignId('beneficiary_id')->cascadeOnDelete();
             $table->timestamps();
         });
     }
