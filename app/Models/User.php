@@ -60,6 +60,11 @@ class User extends Model
 
     public function medicalData(): HasManyThrough
     {
-        return $this->hasManyThrough(MedicalData::class, Call::class);
+        return $this->hasOneThrough(MedicalData::class, Call::class, 'user_id', 'id');
+    }
+
+    public function beneficiaryContacts(): HasManyThrough
+    {
+        return $this->hasManyThrough(Contact::class, Call::class, 'user_id', 'id');
     }
 }
