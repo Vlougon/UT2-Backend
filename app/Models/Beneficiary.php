@@ -66,11 +66,6 @@ class Beneficiary extends Model
         return $this->morphMany(Address::class, 'addressable');
     }
 
-    public function contactable()
-    {
-        return $this->morphToMany(Contact::class, 'contactable');
-    }
-
     public function contacts(): BelongsToMany
     {
         return $this->belongsToMany(Contact::class, 'beneficiary_contacts');
