@@ -21,19 +21,29 @@ class MedicalDataRequest extends FormRequest
     {
         return [
             'beneficiary_id' => 'required|integer|exists:beneficiaries,id',
-            'allergies' => 'required|string',
-            'illnesses' => 'required|string',
-            'morning_medication' => 'required|string',
-            'afternoon_medication' => 'required|string',
-            'night_medication' => 'required|string',
-            'preferent_morning_calls_hour' => 'required|time',
-            'preferent_afternoon_calls_hour' => 'required|time',
-            'preferent_night_calls_hour' => 'required|time',
+            'preferent_morning_calls_hour' => 'required',
+            'preferent_afternoon_calls_hour' => 'required',
+            'preferent_night_calls_hour' => 'required',
             'emergency_room_on_town' => 'required|in:Yes,No',
             'firehouse_on_town' => 'required|in:Yes,No',
             'police_station_on_town' => 'required|in:Yes,No',
             'outpatient_clinic_on_town' => 'required|in:Yes,No',
             'ambulance_on_town' => 'required|in:Yes,No',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'beneficiary_id.required' => 'Es Necesario un Beneficiario',
+            'preferent_morning_calls_hour.required' => 'Es Necesario Especificar una Hora de Llamada por la Mañana Adecuada',
+            'preferent_afternoon_calls_hour.required' => 'Es Necesario Especificar una Hora de Llamada por la Tarde Adecuada',
+            'preferent_night_calls_hour.required' => 'Es Necesario Especificar una Hora de Llamada por la Noche Adecuada',
+            'emergency_room_on_town.required' => 'Es Necesario Indicar si hay Sala de Urgencias en la Localidad',
+            'firehouse_on_town.required' => 'Es Necesario Indicar si hay Bomberos en la Localidad',
+            'police_station_on_town.required' => 'Es Necesario Indicar si hay una Estación de Policía en la Localidad',
+            'outpatient_clinic_on_town.required' => 'Es Necesario Indicar si hay un Ambulatorio en la Localidad',
+            'ambulance_on_town.required' => 'Es Necesario Indicar si hay Ambulancias en la Localidad',
         ];
     }
 }

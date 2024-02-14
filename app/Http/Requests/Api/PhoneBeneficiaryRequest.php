@@ -24,4 +24,12 @@ class PhoneBeneficiaryRequest extends FormRequest
             'phone_number' => 'required|size:9',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'beneficiary_id.required' => 'Es Necesario un Beneficiario',
+            'phone_number.required' => 'Es Necesario un Número de Teléfono (9 Dígitos)',
+        ];
+    }
 }

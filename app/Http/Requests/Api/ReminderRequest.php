@@ -31,4 +31,19 @@ class ReminderRequest extends FormRequest
             'background_color' => 'required|string',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'Es Necesario un Asistente',
+            'beneficiary_id.required' => 'Es Necesario un Beneficiario',
+            'title.required' => 'Es Necesario un Título Único para el Recordatorio',
+            'start_date.required' => 'Es Necesaria la Fecha de Inicio',
+            'end_date.required' => 'Es Necesaria la Fecha de Finalización',
+            'start_time.required' => 'Es Necesaria la Hora de Inicio',
+            'end_time.required' => 'Es Necesaria la Hora de Finalización',
+            'repeat.required' => 'Es Necesario saber qué días se debe Repetir el Recordatorio',
+            'background_color.required' => 'Es Necesario Indicar un Color para el Recordatorio',
+        ];
+    }
 }

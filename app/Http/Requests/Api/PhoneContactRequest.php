@@ -24,4 +24,12 @@ class PhoneContactRequest extends FormRequest
             'phone_number' => 'required|size:9',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'contact_id.required' => 'Es Necesario un Contacto',
+            'phone_number.required' => 'Es Necesario un Número de Teléfono (9 Dígitos)',
+        ];
+    }
 }

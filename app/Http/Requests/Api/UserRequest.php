@@ -26,4 +26,14 @@ class UserRequest extends FormRequest
             'email' => 'required|email',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Es Necesario un Nombre Completo (Máx. 70 Letras)',
+            'password.required' => 'Es Necesaria una Contraseña de Mínimo 10 Dígitos',
+            'role.required' => 'Es Necesario Especificar el Rol del Usuario',
+            'email.required' => 'Es Necesario Indicar un Email Único para el Usuario',
+        ];
+    }
 }

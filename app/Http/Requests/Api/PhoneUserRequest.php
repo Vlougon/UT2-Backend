@@ -24,4 +24,12 @@ class PhoneUserRequest extends FormRequest
             'phone_number' => 'required|size:9',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'Es Necesario un Asistente',
+            'phone_number.required' => 'Es Necesario un Número de Teléfono (9 Dígitos)',
+        ];
+    }
 }

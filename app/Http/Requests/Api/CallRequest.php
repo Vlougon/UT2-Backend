@@ -23,16 +23,29 @@ class CallRequest extends FormRequest
             'user_id' => 'required|integer|exists:users,id',
             'beneficiary_id' => 'required|integer|exists:beneficiaries,id',
             'date' => 'required|date',
-            'time' => 'required|time',
+            'time' => 'required',
             'duration' => 'required|string',
             'call_type' => 'required|in:rutinary,emergency',
             'call_kind' => 'required|in:incoming,outgoing',
             'turn' => 'required|in:morning,afternoon,night',
             'answered_call' => 'required|boolean',
             'observations' => 'required|string',
-            'description' => 'required|string',
-            'contacted_112' => 'required|boolean',
+        ];
+    }
 
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'Es Necesario un Asistente',
+            'beneficiary_id.required' => 'Es Necesario un Beneficiario',
+            'date.required' => 'Es Necesaria una Fecha',
+            'time.required' => 'Es Necesaria una Hora',
+            'duration.required' => 'Es Necesaria la Duración de la Llamada',
+            'call_type.required' => 'Es Necesario Especificar el Tipo de Llamada',
+            'call_kind.required' => 'Es Necesario Especificar la Clase de la Llamada',
+            'turn.required' => 'Es Necesario Indicar el Turno Horario',
+            'answered_call.required' => 'Es Necesario Saber si la Llamada ha sido respondida o no',
+            'observations.required' => 'Es Necesario Añadir Observaciones',
         ];
     }
 }

@@ -22,14 +22,26 @@ class BeneficiaryRequest extends FormRequest
         return [
             'name' => 'required|string|max:35',
             'first_surname' => 'required|string|max:35',
-            'second_surname' => 'required|string|max:35',
             'birth_date' => 'required|date',
             'dni' => 'required|string|size:9',
             'social_security_number' => 'required|string|size:12',
-            'rutine' => 'required|text',
             'gender' => 'required|in:Male,Female,Other',
             'marital_status' => 'required|in:Single,Engaged,Married,Divorced,Uncoupled,Widower',
             'beneficiary_type' => 'required|in:Above65,65-45,44-30,29-19,18-12,Below12',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Es Necesario un Nombre (Máx. 35 Letras)',
+            'first_surname.required' => 'Es Necesario un Primer Apellido (Máx. 35 Letras)',
+            'birth_date.required' => 'Es Necesaria una Fecha de Nacimiento',
+            'dni.required' => 'Es Necesario Especificar un DNI (9 Dígitos)',
+            'social_security_number.required' => 'Es Necesario Especificar un Número de la Seguridad Social (12 Dígitos)',
+            'gender.required' => 'Es Necesario Indicar un Género',
+            'marital_status.required' => 'Es Necesario Indicar un Estado Social',
+            'beneficiary_type.required' => 'Es Necesario Especificar el Tipo de Beneficiario',
         ];
     }
 }

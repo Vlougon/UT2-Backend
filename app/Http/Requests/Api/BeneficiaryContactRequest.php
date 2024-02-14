@@ -14,8 +14,16 @@ class BeneficiaryContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'beneficiary_id' => ['required', 'exists:beneficiaries,id'],
-            'contact_id' => ['required', 'exists:contact,id'],
+            'beneficiary_id' => 'required|exists:beneficiaries,id',
+            'contact_id' => 'required|exists:contact,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'beneficiary_id.required' => 'Es Necesario un Beneficiario',
+            'contact_id.required' => 'Es Necesario un Contacto',
         ];
     }
 }

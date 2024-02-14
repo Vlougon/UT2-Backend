@@ -27,4 +27,15 @@ class AddressRequest extends FormRequest
             'street' => 'required|string',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'locality.required' => 'Es Necesario Especificar una Localidad',
+            'postal_code.required' => 'Es Necesario Indicar un Código Postal',
+            'province.required' => 'Es Necesario Especificar una Provincia',
+            'number.required' => 'Es Necesario Indicar un Número',
+            'street.required' => 'Es Necesario Especificar una Calle',
+        ];
+    }
 }
