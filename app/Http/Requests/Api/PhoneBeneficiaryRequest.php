@@ -20,8 +20,8 @@ class PhoneBeneficiaryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'beneficiary_id' => ['required'],
-            'phone_number' => ['required'],
+            'beneficiary_id' => 'required',
+            'phone_number' => 'required|size:9',
         ];
     }
 }

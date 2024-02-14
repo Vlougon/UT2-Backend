@@ -34,7 +34,7 @@ models:
 
   Phone_Beneficiary:
     beneficiary_id: id
-    phone_number: string
+    phone_number: string:9
 
   # Al tener los id de user_id y beneficiary_id no hace falta crear las realciones
 
