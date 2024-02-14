@@ -42,9 +42,10 @@ models:
     user_id: id
     beneficiary_id: id
     date: date
-    time: timestamp
-    duration: integer
+    time: time
+    duration: string
     call_type: enum:rutinary,emergency
+    call_kind: enum:incoming,outgoing
     turn: enum:morning,afternoon,night
     answered_call: boolean
     observations: text

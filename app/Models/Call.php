@@ -22,6 +22,7 @@ class Call extends Model
         'time',
         'duration',
         'call_type',
+        'call_kind',
         'turn',
         'answered_call',
         'observations',
@@ -39,7 +40,7 @@ class Call extends Model
         'user_id' => 'integer',
         'beneficiary_id' => 'integer',
         'date' => 'date',
-        'time' => 'timestamp',
+        'time' => 'time',
         'answered_call' => 'boolean',
         'contacted_112' => 'boolean',
     ];

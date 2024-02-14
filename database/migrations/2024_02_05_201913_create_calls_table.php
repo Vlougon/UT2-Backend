@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();;
-            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();;
             $table->date('date');
-            $table->timestamp('time');
+            $table->time('time');
             $table->integer('duration');
-            $table->enum('call_type', ["rutinary","emergency"]);
-            $table->enum('turn', ["morning","afternoon","night"]);
+            $table->enum('call_type', ["rutinary", "emergency"]);
+            $table->enum('call_kind', ["incoming", "outgoing"]);
+            $table->enum('turn', ["morning", "afternoon", "night"]);
             $table->boolean('answered_call');
             $table->text('observations');
             $table->text('description');
             $table->boolean('contacted_112');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

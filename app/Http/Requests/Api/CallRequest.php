@@ -20,17 +20,18 @@ class CallRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer', 'exists:users,id'],
-            'beneficiary_id' => ['required', 'integer', 'exists:beneficiaries,id'],
-            'date' => ['required', 'date'],
-            'time' => ['required'],
-            'duration' => ['required', 'integer'],
-            'call_type' => ['required', 'in:rutinary,emergency'],
-            'turn' => ['required', 'in:morning,afternoon,night'],
-            'answered_call' => ['required'],
-            'observations' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'contacted_112' => ['required'],
+            'user_id' => 'required|integer|exists:users,id',
+            'beneficiary_id' => 'required|integer|exists:beneficiaries,id',
+            'date' => 'required|date',
+            'time' => 'required|time',
+            'duration' => 'required|string',
+            'call_type' => 'required|in:rutinary,emergency',
+            'call_kind' => 'required|in:incoming,outgoing',
+            'turn' => 'required|in:morning,afternoon,night',
+            'answered_call' => 'required|boolean',
+            'observations' => 'required|string',
+            'description' => 'required|string',
+            'contacted_112' => 'required|boolean',
 
         ];
     }
