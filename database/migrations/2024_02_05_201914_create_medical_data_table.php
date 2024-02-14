@@ -15,18 +15,18 @@ return new class extends Migration
             $table->id();
             $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();;
             $table->text('allergies');
+            $table->text('illnesses');
             $table->text('morning_medication');
             $table->text('afternoon_medication');
             $table->text('night_medication');
-            $table->enum('emergency_room_on_town', ["Yes","No"]);
-            $table->enum('firehouse_on_town', ["Yes","No"]);
-            $table->enum('police_station_on_town', ["Yes","No"]);
-            $table->enum('outpatient_clinic_on_town', ["Yes","No"]);
-            $table->enum('ambulance_on_town', ["Yes","No"]);
-            $table->text('illnesses');
-            $table->string('preferent_morning_calls_hour');
-            $table->string('preferent_afternoon_calls_hour');
-            $table->string('preferent_night_calls_hour');
+            $table->time('preferent_morning_calls_hour');
+            $table->time('preferent_afternoon_calls_hour');
+            $table->time('preferent_night_calls_hour');
+            $table->enum('emergency_room_on_town', ["Yes", "No"]);
+            $table->enum('firehouse_on_town', ["Yes", "No"]);
+            $table->enum('police_station_on_town', ["Yes", "No"]);
+            $table->enum('outpatient_clinic_on_town', ["Yes", "No"]);
+            $table->enum('ambulance_on_town', ["Yes", "No"]);
             $table->timestamps();
         });
     }

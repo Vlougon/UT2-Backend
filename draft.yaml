@@ -55,18 +55,18 @@ models:
   MedicalData:
     beneficiary_id: id
     allergies: text
+    illnesses: text
     morning_medication: text
     afternoon_medication: text
     night_medication: text
+    preferent_morning_calls_hour: time
+    preferent_afternoon_calls_hour: time
+    preferent_night_calls_hour: time
     emergency_room_on_town: enum:Yes,No
     firehouse_on_town: enum:Yes,No
     police_station_on_town: enum:Yes,No
     outpatient_clinic_on_town: enum:Yes,No
     ambulance_on_town: enum:Yes,No
-    illnesses: text
-    preferent_morning_calls_hour: string
-    preferent_afternoon_calls_hour: string
-    preferent_night_calls_hour: string
 
   Contact:
     name: string

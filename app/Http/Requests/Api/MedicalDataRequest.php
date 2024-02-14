@@ -20,20 +20,20 @@ class MedicalDataRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'beneficiary_id' => ['required', 'integer', 'exists:beneficiaries,id'],
-            'allergies' => ['required', 'string'],
-            'morning_medication' => ['required', 'string'],
-            'afternoon_medication' => ['required', 'string'],
-            'night_medication' => ['required', 'string'],
-            'emergency_room_on_town' => ['required', 'in:Yes,No'],
-            'firehouse_on_town' => ['required', 'in:Yes,No'],
-            'police_station_on_town' => ['required', 'in:Yes,No'],
-            'outpatient_clinic_on_town' => ['required', 'in:Yes,No'],
-            'ambulance_on_town' => ['required', 'in:Yes,No'],
-            'illnesses' => ['required', 'string'],
-            'preferent_morning_calls_hour' => ['required', 'string'],
-            'preferent_afternoon_calls_hour' => ['required', 'string'],
-            'preferent_night_calls_hour' => ['required', 'string'],
+            'beneficiary_id' => 'required|integer|exists:beneficiaries,id',
+            'allergies' => 'required|string',
+            'illnesses' => 'required|string',
+            'morning_medication' => 'required|string',
+            'afternoon_medication' => 'required|string',
+            'night_medication' => 'required|string',
+            'preferent_morning_calls_hour' => 'required|time',
+            'preferent_afternoon_calls_hour' => 'required|time',
+            'preferent_night_calls_hour' => 'required|time',
+            'emergency_room_on_town' => 'required|in:Yes,No',
+            'firehouse_on_town' => 'required|in:Yes,No',
+            'police_station_on_town' => 'required|in:Yes,No',
+            'outpatient_clinic_on_town' => 'required|in:Yes,No',
+            'ambulance_on_town' => 'required|in:Yes,No',
         ];
     }
 }
