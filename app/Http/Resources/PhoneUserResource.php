@@ -15,7 +15,6 @@ class PhoneUserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'user_id' =>new UserResource($this->user),
             'phone_number' => $this->phone_number,
         ];

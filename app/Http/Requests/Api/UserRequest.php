@@ -20,10 +20,10 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'password' => ['required', 'password'],
-            'role' => ['required', 'in:supervisor,assistant'],
-            'email' => ['required', 'email'],
+            'name' => 'required|string',
+            'password' => 'required|password|min:10',
+            'role' => 'required|in:supervisor,assistant',
+            'email' => 'required|email',
         ];
     }
 }

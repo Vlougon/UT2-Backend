@@ -20,8 +20,8 @@ class PhoneUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required'],
-            'phone_number' => ['required'],
+            'user_id' => 'required',
+            'phone_number' => 'required|min:9|max:9',
         ];
     }
 }

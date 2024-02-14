@@ -1,10 +1,8 @@
-
 # --------------------------------------------------------------------------------------
-#                               ** MODELS **           
+#                               ** MODELS **
 # --------------------------------------------------------------------------------------
 
 models:
-
   User:
     name: string
     password: string
@@ -15,8 +13,7 @@ models:
 
   Phone_User:
     user_id: id
-    phone_number: string
-
+    phone_number: string:9
 
   Beneficiary:
     name: string
@@ -39,7 +36,7 @@ models:
     beneficiary_id: id
     phone_number: string
 
-# Al tener los id de user_id y beneficiary_id no hace falta crear las realciones
+  # Al tener los id de user_id y beneficiary_id no hace falta crear las realciones
 
   Call:
     user_id: id
@@ -84,7 +81,6 @@ models:
     contact_id: id
     phone_number: string
 
-
   Address:
     locality: string
     postal_code: string
@@ -93,7 +89,6 @@ models:
     street: string
     relationships:
       morphTo: Addressable
-
 
   Reminder:
     user_id: id
@@ -106,23 +101,20 @@ models:
     start_time: time
     end_time: time
 
-
 # --------------------------------------------------------------------------------------
-#                               ** SEEDERS **           
+#                               ** SEEDERS **
 # --------------------------------------------------------------------------------------
-
 
 seeders: User, Phone_User, Beneficiary, Phone_Beneficiary, Call, MedicalData, Contact, Phone_Contact, Reminder
 
 # --------------------------------------------------------------------------------------
-#                               ** CONTROLLERS **           
+#                               ** CONTROLLERS **
 # --------------------------------------------------------------------------------------
 
 controllers:
-
   Api\UserController:
     index:
-      query: all 
+      query: all
       respond: 200
     store:
       validate: name, password, role, email
@@ -186,7 +178,6 @@ controllers:
       respond: 204
     error:
       respond: 400
-
 
   Api\PhoneBeneficiaryController:
     index:
@@ -312,7 +303,7 @@ controllers:
     edit:
       respond: 200
     update:
-      update: Address  
+      update: Address
       respond: 200
     destroy:
       delete: Address
