@@ -20,11 +20,11 @@ class AddressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'locality' => ['required', 'string'],
-            'postal_code' => ['required', 'string'],
-            'province' => ['required', 'string'],
-            'number' => ['required', 'string'],
-            'street' => ['required', 'string'],
+            'locality' => 'required|string',
+            'postal_code' => 'required|string|size:5',
+            'province' => 'required|string',
+            'number' => 'required|string',
+            'street' => 'required|string',
         ];
     }
 }

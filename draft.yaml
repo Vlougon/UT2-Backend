@@ -84,7 +84,7 @@ models:
 
   Address:
     locality: string
-    postal_code: string
+    postal_code: string:5
     province: string
     number: string
     street: string
