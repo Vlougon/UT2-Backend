@@ -19,12 +19,12 @@ class Reminder extends Model
         'user_id',
         'beneficiary_id',
         'title',
-        'terminated',
         'start_date',
         'end_date',
-        'observations',
         'start_time',
         'end_time',
+        'repeat',
+        'background_color',
     ];
 
     /**

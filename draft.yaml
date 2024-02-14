@@ -95,12 +95,12 @@ models:
     user_id: id
     beneficiary_id: id
     title: string
-    terminated: enum:Yes,No
     start_date: date
     end_date: date
-    observations: text
     start_time: time
     end_time: time
+    repeat: string
+    background_color: string
 
 # --------------------------------------------------------------------------------------
 #                               ** SEEDERS **

@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();;
             $table->string('title');
-            $table->enum('terminated', ["Yes","No"]);
             $table->date('start_date');
             $table->date('end_date');
-            $table->text('observations');
             $table->time('start_time');
             $table->time('end_time');
+            $table->string('repeat');
+            $table->string('background_color');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
