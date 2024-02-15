@@ -27,7 +27,7 @@ class ReminderRequest extends FormRequest
             'end_date' => 'required|date',
             'start_time' => 'required',
             'end_time' => 'required',
-            'repeat' => 'required|string',
+            'repeat' => 'string|nullable',
             'background_color' => 'required|string',
         ];
     }
@@ -42,7 +42,7 @@ class ReminderRequest extends FormRequest
             'end_date.required' => 'Es Necesaria la Fecha de Finalización',
             'start_time.required' => 'Es Necesaria la Hora de Inicio',
             'end_time.required' => 'Es Necesaria la Hora de Finalización',
-            'repeat.required' => 'Es Necesario saber qué días se debe Repetir el Recordatorio',
+            'repeat.string' => 'Los Días para Repetir deben ser Texto',
             'background_color.required' => 'Es Necesario Indicar un Color para el Recordatorio',
         ];
     }

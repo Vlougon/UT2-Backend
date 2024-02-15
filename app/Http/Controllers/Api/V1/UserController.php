@@ -16,14 +16,14 @@ class UserController extends Controller
         if ($users->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron usuarios.',
+                'message' => '¡No se Encontraron Usuarios!',
                 'data' => [],
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuarios encontrados exitosamente.',
+            'message' => '¡Usuarios Encontrados!',
             'data' => $users,
         ], 200);
     }
@@ -52,7 +52,7 @@ class UserController extends Controller
             'status' => 'success',
             'message' => '!Mostrando Datos de ' . $user->name,
             'data' => new UserResource($user),
-        ], 201);
+        ], 200);
     }
 
     public function update(UserRequest $request, User $user)

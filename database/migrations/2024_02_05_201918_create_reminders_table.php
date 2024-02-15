@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->string('repeat');
+            $table->string('repeat')->nullable();
             $table->string('background_color');
             $table->foreignId('user_id')->cascadeOnDelete();
             $table->foreignId('beneficiary_id')->cascadeOnDelete();

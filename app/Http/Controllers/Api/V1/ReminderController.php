@@ -11,18 +11,19 @@ class ReminderController extends Controller
 {
     public function index()
     {
-        $reminders = ReminderResource::collection(Reminder::all());
+        $reminders = ReminderResource::collection(Reminder::latest()->get());
 
         if ($reminders->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron recordatorios.',
-            ], 200);
+                'message' => '¡No se Encontraron Recordatorios!',
+                'data' => [],
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Recordatorios obtenidos correctamente.',
+            'message' => '¡Recordatorios Obtenidos!',
             'data' => $reminders,
         ], 200);
     }
@@ -33,18 +34,41 @@ class ReminderController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuario creado exitosamente.',
+            'message' => '¡Recordatorio Añadido!',
             'data' => new ReminderResource($reminder),
         ], 201);
     }
 
+    public function show(Reminder $reminder)
+    {
+        if (is_null($reminder)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Recordatorio!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '!Recordatorio: ' . $reminder->title,
+            'data' => new ReminderResource($reminder),
+        ], 200);
+    }
+
     public function update(ReminderRequest $request, Reminder $reminder)
     {
+        if (is_null($reminder)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Recordatorio para Actualizar!',
+            ], 404);
+        }
+
         $reminder->update($request->all());
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Recordatorio actualizado correctamente.',
+            'message' => '¡Recordatorio Actualizado!',
             'data' => new ReminderResource($reminder),
         ], 200);
     }
@@ -55,16 +79,16 @@ class ReminderController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Recordatorio eliminado correctamente.',
-            'data' => null,
-        ], 200);
+            'message' => '¡Recordatorio Eliminado!',
+            'data' => $reminder,
+        ], 204);
     }
 
     public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para Recordatorios!',
         ], 400);
     }
 }
