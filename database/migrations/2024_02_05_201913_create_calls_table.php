@@ -21,8 +21,8 @@ return new class extends Migration
             $table->enum('turn', ["morning", "afternoon", "night"]);
             $table->boolean('answered_call');
             $table->text('observations');
-            $table->text('description');
-            $table->boolean('contacted_112');
+            $table->text('description')->default('');
+            $table->boolean('contacted_112')->default(false);
             $table->foreignId('user_id')->cascadeOnDelete();
             $table->foreignId('beneficiary_id')->cascadeOnDelete();
             $table->timestamps();

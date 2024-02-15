@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 35);
             $table->string('first_surname', 35);
-            $table->string('second_surname', 35);
+            $table->string('second_surname', 35)->nullable();
             $table->enum('contact_type', ["Familiar","Friend","Partner","Other"]);
             $table->timestamps();
         });

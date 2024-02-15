@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name', 35);
             $table->string('first_surname', 35);
-            $table->string('second_surname', 35);
+            $table->string('second_surname', 35)->nullable();
             $table->date('birth_date');
             $table->string('dni', 9);
             $table->string('social_security_number', 12);
-            $table->text('rutine');
+            $table->text('rutine')->default('');
             $table->enum('gender', ["Male","Female","Other"]);
             $table->enum('marital_status', ["Single","Engaged","Married","Divorced","Uncoupled","Widower"]);
             $table->enum('beneficiary_type', ["Above65","65-45","44-30","29-19","18-12","Below12"]);
