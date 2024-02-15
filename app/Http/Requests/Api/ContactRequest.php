@@ -22,6 +22,7 @@ class ContactRequest extends FormRequest
         return [
             'name' => 'required|string|max:35',
             'first_surname' => 'required|string|max:35',
+            'second_surname' => 'string|max:35',
             'contact_type' => 'required|in:Familiar,Friend,Partner,Other',
         ];
     }
@@ -31,6 +32,7 @@ class ContactRequest extends FormRequest
         return [
             'name.required' => 'Es Necesario un Nombre (Máx. 35 Letras)',
             'first_surname.required' => 'Es Necesario un Primer Apellido (Máx. 35 Letras)',
+            'second_surname.string' => 'El Segundo Apellido no puede exceder 35 letras',
             'contact_type.required' => 'Es Necesario Indicar el Tipo de Contacto',
         ];
     }

@@ -30,6 +30,8 @@ class CallRequest extends FormRequest
             'turn' => 'required|in:morning,afternoon,night',
             'answered_call' => 'required|boolean',
             'observations' => 'required|string',
+            'description' => 'string',
+            'contacted_112' => 'boolean',
         ];
     }
 
@@ -46,6 +48,8 @@ class CallRequest extends FormRequest
             'turn.required' => 'Es Necesario Indicar el Turno Horario',
             'answered_call.required' => 'Es Necesario Saber si la Llamada ha sido respondida o no',
             'observations.required' => 'Es Necesario Añadir Observaciones',
+            'description.string' => 'La Descripción debe ser Texto',
+            'contacted_112.boolean' => 'Saber si se ha contactado con el 112 debe ser verdadero o falso',
         ];
     }
 }

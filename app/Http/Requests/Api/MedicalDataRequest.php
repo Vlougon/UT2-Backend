@@ -21,6 +21,11 @@ class MedicalDataRequest extends FormRequest
     {
         return [
             'beneficiary_id' => 'required|integer|exists:beneficiaries,id',
+            'allergies' => 'string',
+            'illnesses' => 'string',
+            'morning_medication' => 'string',
+            'afternoon_medication' => 'string',
+            'night_medication' => 'string',
             'preferent_morning_calls_hour' => 'required',
             'preferent_afternoon_calls_hour' => 'required',
             'preferent_night_calls_hour' => 'required',
@@ -36,6 +41,11 @@ class MedicalDataRequest extends FormRequest
     {
         return [
             'beneficiary_id.required' => 'Es Necesario un Beneficiario',
+            'allergies.string' => 'Debe ser Texto',
+            'illnesses.string' => 'Debe ser Texto',
+            'morning_medication.string' => 'Debe ser Texto',
+            'afternoon_medication.string' => 'Debe ser Texto',
+            'night_medication.string' => 'Debe ser Texto',
             'preferent_morning_calls_hour.required' => 'Es Necesario Especificar una Hora de Llamada por la Mañana Adecuada',
             'preferent_afternoon_calls_hour.required' => 'Es Necesario Especificar una Hora de Llamada por la Tarde Adecuada',
             'preferent_night_calls_hour.required' => 'Es Necesario Especificar una Hora de Llamada por la Noche Adecuada',
