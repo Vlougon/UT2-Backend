@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserRequest;
@@ -34,7 +34,7 @@ class UserController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuario creado exitosamente.',
+            'message' => '¡Usuario Creado Exitosamente!',
             'data' => new UserResource($user),
         ], 201);
     }
@@ -50,7 +50,7 @@ class UserController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuario creado exitosamente.',
+            'message' => '!Mostrando Datos de ' . $user->name,
             'data' => new UserResource($user),
         ], 201);
     }
@@ -60,15 +60,29 @@ class UserController extends Controller
         if (is_null($user)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado el usuario indicado!',
+                'message' => '¡No se ha encontrado el Usuario para Actualizar!',
             ], 404);
+        }
+
+        if ($request->password === $user->password) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡La Contraseña debe ser Diferente!',
+            ], 400);
+        }
+
+        if ($request->email !== $user->email) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡El Email debe ser el mismo!',
+            ], 400);
         }
 
         $user->update($request->validated());
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Usuario actualizado exitosamente!',
+            'message' => '¡Usuario actualizado Exitosamente!',
             'data' => new UserResource($user),
         ], 200);
     }
@@ -78,7 +92,7 @@ class UserController extends Controller
         if (is_null($user)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado el usuario indicado!',
+                'message' => '¡No se ha encontrado el Usuario para Eliminar!',
             ], 404);
         }
 
@@ -86,16 +100,16 @@ class UserController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Usuario eliminado exitosamente!',
-            'data' => null,
-        ], 200);
+            'message' => '¡Usuario Eliminado Exitosamente!',
+            'data' => $user,
+        ], 204);
     }
 
     public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para Usuarios!',
         ], 400);
     }
 }

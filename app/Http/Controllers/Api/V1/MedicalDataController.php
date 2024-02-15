@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\MedicalDataRequest;
@@ -30,12 +30,12 @@ class MedicalDataController extends Controller
 
     public function store(MedicalDataRequest $request)
     {
-        $user = User::create($request->validated());
+        $medicalData = MedicalData::create($request->validated());
 
         return response()->json([
             'status' => 'success',
             'message' => 'Usuario creado exitosamente.',
-            'data' => new MedicalDataResource($user),
+            'data' => new MedicalDataResource($medicalData),
         ], 201);
     }
 

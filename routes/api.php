@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\PhoneUserController;
-use App\Http\Controllers\Api\BeneficiaryController;
-use App\Http\Controllers\Api\PhoneBeneficiaryController;
-use App\Http\Controllers\Api\CallController;
-use App\Http\Controllers\Api\MedicalDataController;
-use App\Http\Controllers\Api\ContactController;
-use App\Http\Controllers\Api\PhoneContactController;
-use App\Http\Controllers\Api\ReminderController;
-use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\V1\PhoneUserController;
+use App\Http\Controllers\Api\V1\BeneficiaryController;
+use App\Http\Controllers\Api\V1\PhoneBeneficiaryController;
+use App\Http\Controllers\Api\V1\CallController;
+use App\Http\Controllers\Api\V1\MedicalDataController;
+use App\Http\Controllers\Api\V1\ContactController;
+use App\Http\Controllers\Api\V1\PhoneContactController;
+use App\Http\Controllers\Api\V1\ReminderController;
+use App\Http\Controllers\Api\V1\AddressController;
+use App\Http\Controllers\Api\V1\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,29 +34,29 @@ Route::prefix('V1')->group(function () {
     Route::apiResource('users', UserController::class);
 
     // Rutas para Phone_User
-    Route::resource('phone_users', PhoneUserController::class);
+    Route::apiResource('phone_users', PhoneUserController::class);
 
     // Rutas para Beneficiary
-    Route::resource('beneficiaries', BeneficiaryController::class);
+    Route::apiResource('beneficiaries', BeneficiaryController::class);
 
     // Rutas para Phone_Beneficiary
-    Route::resource('phone_beneficiaries', PhoneBeneficiaryController::class);
+    Route::apiResource('phone_beneficiaries', PhoneBeneficiaryController::class);
 
     // Rutas para Call
-    Route::resource('calls', CallController::class);
+    Route::apiResource('calls', CallController::class);
 
     // Rutas para MedicalData
-    Route::resource('medical_data', MedicalDataController::class);
+    Route::apiResource('medical_data', MedicalDataController::class);
 
     // Rutas para Contact
-    Route::resource('contacts', ContactController::class);
+    Route::apiResource('contacts', ContactController::class);
 
     // Rutas para Phone_Contact
-    Route::resource('phone_contacts', PhoneContactController::class);
+    Route::apiResource('phone_contacts', PhoneContactController::class);
 
     // Rutas para Reminder
-    Route::resource('reminders', ReminderController::class);
+    Route::apiResource('reminders', ReminderController::class);
 
     // Rutas para Address
-    Route::resource('addresses', AddressController::class);
+    Route::apiResource('addresses', AddressController::class);
 });

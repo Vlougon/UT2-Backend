@@ -19,12 +19,19 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:70',
             'password' => 'required|min:10',
             'role' => 'required|in:supervisor,assistant',
             'email' => 'required|email|unique:users',
         ];
+
+        if (in_array($this->getMethod(), ['PUT', 'PATCH'])) {
+            $user = $this->route()->parameter('user');
+            $rules['email'] .= ',email,' . $user->id;
+        }
+
+        return $rules;
     }
 
     public function messages(): array
