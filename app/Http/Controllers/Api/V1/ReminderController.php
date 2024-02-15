@@ -50,7 +50,7 @@ class ReminderController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '!Recordatorio: ' . $reminder->title,
+            'message' => '!Recordatorio: ' . $reminder->title . '!',
             'data' => new ReminderResource($reminder),
         ], 200);
     }

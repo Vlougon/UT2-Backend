@@ -50,7 +50,7 @@ class UserController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '!Mostrando Datos de ' . $user->name,
+            'message' => '!Mostrando Datos de ' . $user->name . '!',
             'data' => new UserResource($user),
         ], 200);
     }

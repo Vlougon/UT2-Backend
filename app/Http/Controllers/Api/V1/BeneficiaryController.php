@@ -16,14 +16,14 @@ class BeneficiaryController extends Controller
         if ($beneficiaries->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron beneficiarios.',
+                'message' => '¡No se Encontraron Beneficiarios!',
                 'data' => [],
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Beneficiarios encontrados exitosamente.',
+            'message' => '¡Beneficiarios Encontrados!',
             'data' => $beneficiaries,
         ], 200);
     }
@@ -34,9 +34,25 @@ class BeneficiaryController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Beneficiario creado exitosamente.',
+            'message' => '¡Beneficiario Creado Exitosamente!',
             'data' => new BeneficiaryResource($beneficiary),
         ], 201);
+    }
+
+    public function show(Beneficiary $beneficiary)
+    {
+        if (is_null($beneficiary)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Beneficiario!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '!Mostrando Datos del Beneficiario ' . $beneficiary->name . '!',
+            'data' => new BeneficiaryResource($beneficiary),
+        ], 200);
     }
 
     public function update(BeneficiaryRequest $request, Beneficiary $beneficiary)
@@ -44,7 +60,7 @@ class BeneficiaryController extends Controller
         if (is_null($beneficiary)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado el beneficiario indicado!',
+                'message' => '¡No se ha encontrado el Beneficiario para Actualziar!',
             ], 404);
         }
 
@@ -52,7 +68,7 @@ class BeneficiaryController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Se ha actualizado exitosamente el beneficiario!',
+            'message' => '¡Beneficiario Actualizado!',
             'data' => new BeneficiaryResource($beneficiary),
         ], 200);
     }
@@ -62,7 +78,7 @@ class BeneficiaryController extends Controller
         if (is_null($beneficiary)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado el beneficiario indicado!',
+                'message' => '¡No se ha encontrado el Beneficiario para Eliminar!',
             ], 404);
         }
 
@@ -70,16 +86,16 @@ class BeneficiaryController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Beneficiario eliminado exitosamente!',
-            'data' => null,
-        ], 200);
+            'message' => '¡Beneficiario Eliminado!',
+            'data' => $beneficiary,
+        ], 204);
     }
 
     public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para Beneficiarios!',
         ], 400);
     }
 }

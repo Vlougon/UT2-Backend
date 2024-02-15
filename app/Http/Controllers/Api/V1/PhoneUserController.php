@@ -16,13 +16,14 @@ class PhoneUserController extends Controller
         if ($phoneUsers->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron teléfonos para este usuario.',
-            ], 200);
+                'message' => '¡No se Encontraron Teléfonos de Usuarios!',
+                'data' => [],
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Los teléfono del usuario se han obtenidos correctamente.',
+            'message' => '¡Estos son los Teléfono de los Usuarios!',
             'data' => $phoneUsers,
         ], 200);
     }
@@ -33,38 +34,68 @@ class PhoneUserController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuario creado exitosamente.',
+            'message' => '¡Añadido Nuevo Teléfono para el Usuario!',
             'data' => new PhoneUserResource($phoneUser),
         ], 201);
     }
 
+    public function show(PhoneUser $phoneUser)
+    {
+        if (is_null($phoneUser)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Teléfono del Usuario!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '!Teléfono Encontrado!',
+            'data' => new PhoneUserResource($phoneUser),
+        ], 200);
+    }
+
     public function update(PhoneUserRequest $request, PhoneUser $phoneUser)
     {
+        if (is_null($phoneUser)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Teléfono de Usuario para Actualizar!',
+            ], 404);
+        }
+
         $phoneUser->update($request->all());
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Teléfono usuario actualizado correctamente.',
-            'data' => $phoneUser,
+            'message' => '¡Teléfono de Usuario Actualizado!',
+            'data' => new PhoneUserResource($phoneUser),
         ], 200);
     }
 
     public function destroy(PhoneUser $phoneUser)
     {
+        if (is_null($phoneUser)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Teléfono de Usuario para Eliminar!',
+            ], 404);
+        }
+
         $phoneUser->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Teléfono usuario eliminado correctamente.',
-            'data' => null,
-        ], 200);
+            'message' => '¡Teléfono de Usuario Eliminado!',
+            'data' => $phoneUser,
+        ], 204);
     }
 
     public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para los Teléfonos de Usuarios!',
         ], 400);
     }
 }

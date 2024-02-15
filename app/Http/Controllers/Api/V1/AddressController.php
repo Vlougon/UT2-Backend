@@ -16,14 +16,14 @@ class AddressController extends Controller
         if ($addresses->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron direcciones.',
+                'message' => '¡No se Encontraron Direcciones!',
                 'data' => [],
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Direcciones encontradas exitosamente.',
+            'message' => '¡Direcciones Encontradas!',
             'data' => $addresses,
         ], 200);
     }
@@ -34,9 +34,25 @@ class AddressController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Dirección creada exitosamente.',
+            'message' => '¡Dirección Añadida Exitosamente!',
             'data' => new AddressResource($address),
         ], 201);
+    }
+
+    public function show(Address $address)
+    {
+        if (is_null($address)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado la Dirección!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '!Mostrando la Dirección!',
+            'data' => new AddressResource($address),
+        ], 200);
     }
 
     public function update(AddressRequest $request, Address $address)
@@ -44,7 +60,7 @@ class AddressController extends Controller
         if (is_null($address)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado la dirección indicada!',
+                'message' => '¡No se ha encontrado la Dirección para Actualizar!',
             ], 404);
         }
 
@@ -52,7 +68,7 @@ class AddressController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Se ha actualizado exitosamente la dirección!',
+            'message' => '¡Dirección Actualizada!',
             'data' => new AddressResource($address),
         ], 200);
     }
@@ -62,7 +78,7 @@ class AddressController extends Controller
         if (is_null($address)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado la dirección indicada!',
+                'message' => '¡No se ha encontrado la Dirección para Eliminar!',
             ], 404);
         }
 
@@ -70,16 +86,16 @@ class AddressController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Dirección eliminada exitosamente!',
-            'data' => null,
-        ], 200);
+            'message' => '¡Dirección Eliminada!',
+            'data' => $address,
+        ], 204);
     }
 
     public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para Dirección!',
         ], 400);
     }
 }

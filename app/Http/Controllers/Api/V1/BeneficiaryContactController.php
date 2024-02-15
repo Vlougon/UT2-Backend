@@ -16,13 +16,14 @@ class BeneficiaryContactController extends Controller
         if ($contacts->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron contactos de beneficiarios.',
-            ], 200);
+                'message' => '¡No se Encontraron Contactos de Beneficiarios!',
+                'data' => [],
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contactos de beneficiarios obtenidos exitosamente.',
+            'message' => '¡Contactos de Beneficiarios Encontrados!',
             'data' => $contacts,
         ], 200);
     }
@@ -33,40 +34,60 @@ class BeneficiaryContactController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contacto de beneficiario creado exitosamente.',
+            'message' => '¡Contacto de Beneficiario Creado!',
             'data' => new BeneficiaryContactResource($contact),
         ], 201);
     }
 
-    
     public function show(BeneficiaryContact $contact)
     {
+        if (is_null($contact)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Contacto de Beneficiario!',
+            ], 404);
+        }
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Contacto de beneficiario obtenido correctamente.',
+            'message' => '¡Contacto de Beneficiario Obtenido!',
             'data' => new BeneficiaryContactResource($contact),
         ], 200);
     }
 
     public function update(BeneficiaryContactRequest $request, BeneficiaryContact $contact)
     {
+        if (is_null($contact)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Contacto de Beneficiario pars Actualizar!',
+            ], 404);
+        }
+
         $contact->update($request->all());
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contacto de beneficiario actualizado correctamente.',
+            'message' => '¡Contacto de Beneficiario Actualizado!',
             'data' => new BeneficiaryContactResource($contact),
         ], 200);
     }
 
     public function destroy(BeneficiaryContact $contact)
     {
+        if (is_null($contact)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Contacto de Beneficiario pars Eliminar!',
+            ], 404);
+        }
+
         $contact->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contacto de beneficiario eliminado correctamente.',
-            'data' => null,
-        ], 200);
+            'message' => '¡Contacto de Beneficiario Eliminado!',
+            'data' => $contact,
+        ], 204);
     }
 }

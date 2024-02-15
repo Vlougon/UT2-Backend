@@ -17,55 +17,86 @@ class PhoneContactController extends Controller
         if ($phoneContacts->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron contactos de teléfono.',
-            ], 200);
+                'message' => '¡No se Encontraron Teléfonos de Contactos!',
+                'data' => [],
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contactos de teléfono obtenidos correctamente.',
+            'message' => '¡Estos son los Teléfonos de los Contactos!',
             'data' => $phoneContacts,
         ], 200);
     }
 
     public function store(PhoneContactRequest $request)
     {
-        $phonecontact = PhoneContact::create($request->validated());
+        $phoneContact = PhoneContact::create($request->validated());
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Usuario creado exitosamente.',
-            'data' => new PhoneContactResource($phonecontact),
+            'message' => '¡Añadido Nuevo Teléfono para el Contacto!',
+            'data' => new PhoneContactResource($phoneContact),
         ], 201);
+    }
+
+    public function show(PhoneContact $phoneContact)
+    {
+        if (is_null($phoneContact)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Teléfono del Contacto!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => '!Teléfono Encontrado!',
+            'data' => new PhoneContactResource($phoneContact),
+        ], 200);
     }
 
     public function update(PhoneContactRequest $request, PhoneContact $phoneContact)
     {
+        if (is_null($phoneContact)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Teléfono del Contacto para Actualizar!',
+            ], 404);
+        }
+
         $phoneContact->update($request->all());
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contacto de teléfono actualizado correctamente.',
-            'data' => $phoneContact,
+            'message' => '¡Teléfono de Contacto Actualizado!',
+            'data' => new PhoneContactResource($phoneContact),
         ], 200);
     }
 
     public function destroy(PhoneContact $phoneContact)
     {
+        if (is_null($phoneContact)) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => '¡No se ha encontrado el Teléfono del Contacto para Eliminar!',
+            ], 404);
+        }
+
         $phoneContact->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contacto de teléfono eliminado correctamente.',
-            'data' => null,
-        ], 200);
+            'message' => '¡Teléfono de Contacto Eliminado!',
+            'data' => $phoneContact,
+        ], 204);
     }
 
-    public function error(Request $request)
+    public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para los Teléfonos de Contacto!',
         ], 400);
     }
 }

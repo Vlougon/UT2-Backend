@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CallRequest;
 use App\Http\Resources\CallResource;
 use App\Models\Call;
-use Illuminate\Http\Request;
 
 class CallController extends Controller
 {
@@ -17,14 +16,14 @@ class CallController extends Controller
         if ($calls->isEmpty()) {
             return response()->json([
                 'status' => 'failed',
-                'message' => 'No se encontraron llamadas.',
+                'message' => '¡No se Encontraron Llamadas!',
                 'data' => [],
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Llamadas encontradas exitosamente.',
+            'message' => '¡Llamadas Encontradas!',
             'data' => $calls,
         ], 200);
     }
@@ -36,7 +35,7 @@ class CallController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Llamada creada exitosamente.',
+            'message' => '¡Llamada Guardada!',
             'data' => new CallResource($call),
         ], 201);
     }
@@ -46,13 +45,13 @@ class CallController extends Controller
         if (is_null($call)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado la llamada indicada!',
+                'message' => '¡No se ha encontrado la Llamada!',
             ], 404);
         }
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Llamada encontrada exitosamente.',
+            'message' => '¡Llamada Encontrada!',
             'data' => new CallResource($call),
         ], 200);
     }
@@ -62,7 +61,7 @@ class CallController extends Controller
         if (is_null($call)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado la llamada indicada!',
+                'message' => '¡No se ha encontrado la Llamada para Actualizar!',
             ], 404);
         }
 
@@ -70,7 +69,7 @@ class CallController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Llamada actualizada exitosamente!',
+            'message' => '¡Llamada Actualizada!',
             'data' => new CallResource($call),
         ], 200);
     }
@@ -80,7 +79,7 @@ class CallController extends Controller
         if (is_null($call)) {
             return response()->json([
                 'status' => 'failed',
-                'message' => '¡No se ha encontrado la llamada indicada!',
+                'message' => '¡No se ha encontrado la Llamada para Elimminar!',
             ], 404);
         }
 
@@ -88,16 +87,16 @@ class CallController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => '¡Llamada eliminada exitosamente!',
-            'data' => null,
-        ], 200);
+            'message' => '¡Llamada Eliminada!',
+            'data' => $call,
+        ], 204);
     }
 
     public function error()
     {
         return response()->json([
             'status' => 'error',
-            'message' => 'Ha ocurrido un error.',
+            'message' => '¡Ha Ocurrido un Error con los Métodos del Controlador para Llamadas!',
         ], 400);
     }
 }
